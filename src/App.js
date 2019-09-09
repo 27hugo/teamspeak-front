@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import HomeComponent from './components/home/HomeComponent';
+import ChannelCreateComponent from './components/channels/ChannelCreateComponent';
+import ClientChannelsComponent from './components/clients/ClientChannelsComponent';
+import ClientInfoComponent from './components/clients/ClientInfoComponent';
+import LoginComponent from './components/login/LoginComponent';
+import Navbar from './components/navbar/NavbarComponent';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navbar />
+        <Route path="/" exact component={HomeComponent} />
+        <Route path="/login" exact component={LoginComponent} />
+        <Route path="/channelcreate" exact component={ChannelCreateComponent} />
+        <Route path="/channelsclient" exact component={ClientChannelsComponent} />
+        <Route path="/clientinfo" exact component={ClientInfoComponent} />
+      </Router>
     </div>
   );
 }
