@@ -16,8 +16,8 @@ const loginService = new LoginService();
 const useStyles = makeStyles(theme => ({
     formControl: {
         padding: 0,
-        marginTop: 15,
-        marginBottom: 15
+        marginTop: 5,
+        marginBottom: 5
     },
 }));
 
@@ -65,6 +65,7 @@ function LoginComponent(){
         <form id="loginForm" onSubmit={handleSubmit}>
             <FormGroup className={classes.formControl}>
                 <TextField 
+                margin="dense"
                 id="outlined-error"
                 label="Correo electrónico"
                 value={form.email}
@@ -78,6 +79,7 @@ function LoginComponent(){
             </FormGroup>
             <FormGroup className={classes.formControl}>
                 <TextField 
+                margin="dense"
                     value={form.password}
                     onChange={handleChange('password')}
                     label="Contraseña"
