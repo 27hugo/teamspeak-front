@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 function LoginComponent(){
     const classes = useStyles();
-
+  const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(false);
 
     const [form, setForm] = useState({
@@ -43,7 +43,7 @@ function LoginComponent(){
       const handleChange = prop => event => {
         setForm({ ...form, [prop]: event.target.value });
         
-        if(event.target.value === '' || (prop === 'password' && (event.target.value.length < 6 || event.target.value.length > 12))){
+        if(event.target.value === ''){
           setErrors({...errors, [prop]: true});
         }else{
           setErrors({...errors, [prop]: false});
@@ -52,13 +52,17 @@ function LoginComponent(){
       };
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setSubmitting(true);
         const login = new LoginModel(null, form.email, form.password, null, null, null);
         console.log(login);
         const resp = await loginService.login(login);
         console.log(resp);
         if(resp.status === 'ERROR' ){
           setLoginError(resp.error);
+        }else{
+          setLoginError(false);
         }
+        setSubmitting(false);
       };
     
     return(
@@ -67,10 +71,10 @@ function LoginComponent(){
                 <TextField 
                 margin="dense"
                 id="outlined-error"
-                label="Correo electrónico"
+                label="Ingrese su correo electrónico"
                 value={form.email}
                 onChange={handleChange('email')}
-                variant="outlined"
+                
                 required
                 autoFocus
                 error={errors.email}
@@ -82,9 +86,8 @@ function LoginComponent(){
                 margin="dense"
                     value={form.password}
                     onChange={handleChange('password')}
-                    label="Contraseña"
+                    label="Ingrese su contraseña"
                     type={form.showPassword ? 'text' : 'password'}
-                    variant="outlined"
                     InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
@@ -100,13 +103,13 @@ function LoginComponent(){
                       }}
                       required
                       error={errors.password}
-                      helperText={errors.password?"Debe ingresar una contraseña entre 6 y 12 caracteres":""}
+                      helperText={errors.password?"Debe ingresar su contraseña":""}
                 />
             </FormGroup>
 
               {loginError?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{loginError}</FormHelperText>:''}
             
-            <Button disabled={form.email === '' || form.password === '' || errors.password} type="submit" variant="contained" size="large" color="primary">
+            <Button disabled={submitting || form.email === '' || form.password === '' || errors.password} type="submit" variant="contained" size="large" color="primary">
                 Iniciar Sesion
                 <ChevronRightIcon/>    
             </Button>

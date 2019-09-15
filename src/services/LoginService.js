@@ -14,8 +14,16 @@ export default class LoginService{
         }));
     }
 
-    register(){
-
+    register(user){
+        return ( new Promise( resolve => {
+            axios.post(config.apiurl + '/login/register', user, config.headers)
+            .then( resp => {
+                resolve(resp.data);
+            })
+            .catch( err => {
+                resolve({status: 'ERROR', error: 'Error de conexión'});
+            });
+        }));
     }
 
     changePassword(){
