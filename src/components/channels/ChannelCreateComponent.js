@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import {  Button, FormGroup, FormHelperText } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-//import {TextField} from '@material-ui/core';
-
 import { makeStyles } from '@material-ui/core/styles';
 import ChannelModel from '../../models/ChannelModel';
-
 import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
 import ChannelsService from '../../services/ChannelsService';
-
-//import IconButton from '@material-ui/core/IconButton';
-//import InputAdornment from '@material-ui/core/InputAdornment';
-//import Visibility from '@material-ui/icons/Visibility';
-//import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -23,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ChannelCreateComponent(){
+function ChannelCreateComponent(props){    
     const classes = useStyles();
     const channelsService = new ChannelsService(); 
     const [success, setSuccess] = useState(undefined);
@@ -37,12 +29,12 @@ function ChannelCreateComponent(){
             setSuccess(resp.error);
         }
     }
-    
+    if ( !localStorage.getItem('logueado') ) { 
+        props.history.push('/login');
+        return null;
+    }
     const required = value => (value ? undefined : 'Este campo es requerido');
-    //const email = value => ( value.match(/[a-zA-Z]@/) ? undefined: 'El correo ingresado no es válido  ' );
     const alphanumeric = value => ( value.match(/^[a-z\d\-_\s]+$/i) ? undefined: 'Debe ingresar sólo números y letras');
-    //const mustBeNumber = value => (isNaN(value) ? 'Debe ingresar un numero' : undefined);
-    //const minValue = min => value => isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
     const minLength = min => value => value.length < min ? `Debe ingresar al menos ${min} caracteres`: undefined;
     const maxLength = max => value => value.length > max ? `El límite de caracteres es de ${max}`: undefined;
     

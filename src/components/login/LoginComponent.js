@@ -3,8 +3,6 @@ import { TextField, Button, FormGroup, FormHelperText } from '@material-ui/core'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginModel from '../../models/LoginModel';
-
-
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
@@ -54,9 +52,7 @@ function LoginComponent(){
         event.preventDefault();
         setSubmitting(true);
         const login = new LoginModel(null, form.email, form.password, null, null, null);
-        console.log(login);
         const resp = await loginService.login(login);
-        console.log(resp);
         if(resp.status === 'ERROR' ){
           setLoginError(resp.error);
         }else{
@@ -74,7 +70,6 @@ function LoginComponent(){
                 label="Ingrese su correo electrónico"
                 value={form.email}
                 onChange={handleChange('email')}
-                
                 required
                 autoFocus
                 error={errors.email}
@@ -106,9 +101,7 @@ function LoginComponent(){
                       helperText={errors.password?"Debe ingresar su contraseña":""}
                 />
             </FormGroup>
-
-              {loginError?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{loginError}</FormHelperText>:''}
-            
+            {loginError?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{loginError}</FormHelperText>:''}
             <Button disabled={submitting || form.email === '' || form.password === '' || errors.password} type="submit" variant="contained" size="large" color="primary">
                 Iniciar Sesion
                 <ChevronRightIcon/>    

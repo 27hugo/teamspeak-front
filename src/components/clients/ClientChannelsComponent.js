@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ChannelsService from '../../services/ChannelsService';
-
-
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,8 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-
 
 const channelsService = new ChannelsService();
 const useStyles = makeStyles(theme => ({
