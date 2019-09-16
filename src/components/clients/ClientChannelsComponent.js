@@ -44,34 +44,28 @@ function ClientChannelsComponent(props){
         state: false,
         error: ''
     });
-    
-    const loadChannels = () => {
-        channelsService.getChannelsByCliId( JSON.parse(localStorage.getItem('user')).id )
-        .then( canales => {
-            setCanales(canales.data.data);
-            setLoading(false);
-        });
-    };
-
-    useEffect( () => {
-        if ( !localStorage.getItem('logueado') ) { 
-            props.history.push('/login');
-        }else{
-           loadChannels();
-        }
+  
+    useEffect( () => {     
+            if( localStorage.getItem('logueado') ){
+                channelsService.getChannelsByCliId( JSON.parse(localStorage.getItem('user')).id )
+                .then( canales => {
+                    setCanales(canales.data.data);
+                    setLoading(false);
+                });
+            }
     }, []);
     
-
+    if ( !localStorage.getItem('logueado') ) { 
+        props.history.push('/login');
+        return null;
+    }
     const deleteChannel = async (can_id, index) => {
         var resp = await channelsService.deleteChannel(can_id);
-        //console.log(resp);
         if(resp.status === 'OK'){
-            //console.log(resp.data);
             canales.splice(index, 1);
             setCanales([...canales]);
         }
         if(resp.status === 'ERROR' || resp.status === 'FATAL'){
-            //console.log(resp.error);
             setDeleteError({state:true, error: resp.error});
         }
     }
@@ -79,9 +73,18 @@ function ClientChannelsComponent(props){
     if( loading ){
         return(
             <div>
-                 <Grid item md={3}>
-                    <CircularProgress className={classes.progress} />
-                 </Grid>
+                <Grid item md={3}>
+                    <Typography variant="h6" className={classes.title}>
+                        Canales cliente {JSON.parse(localStorage.getItem('user')).email}
+                    </Typography>
+                    <div className={classes.demo}>
+                        <List>
+                            <ListItem>
+                            <CircularProgress className={classes.progress} />
+                            </ListItem>
+                        </List>
+                    </div>
+                </Grid>
             </div>
         );
     }else{
@@ -93,9 +96,7 @@ function ClientChannelsComponent(props){
                 </Typography>
                 <div className={classes.demo}>
                 <List>
-                {canales.length > 0 ?canales.map( (canal, index) => (
-
-                
+                {canales.length > 0 ?canales.map( (canal, index) => (       
                     <ListItem key={canal.can_id}>
                         <ListItemAvatar>
                             <Avatar>
@@ -112,9 +113,6 @@ function ClientChannelsComponent(props){
                         </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>    
-                
-
-
                 )):
                     <div className={classes.demo}>
                     <List>
@@ -126,7 +124,6 @@ function ClientChannelsComponent(props){
                     </List>
                     </div>
                 }
-            
                 </List>
                 {deleteError.state?
                 <div className={classes.demo}>
