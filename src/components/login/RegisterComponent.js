@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Select, MenuItem, FormControl, Grid, TextField, Button, FormGroup, FormHelperText, InputLabel } from '@material-ui/core';
+import { MenuItem, Grid, Button, FormGroup, FormHelperText } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginModel from '../../models/LoginModel';
 
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import {Form, Field} from 'react-final-form';
+import {TextField} from 'final-form-material-ui';
+import { Select } from 'final-form-material-ui';
 import LoginService from '../../services/LoginService';
 import ClientModel from '../../models/ClientModel';
 import regiones from '../../utils/RegionesService.json';
@@ -27,247 +26,211 @@ const useStyles = makeStyles(theme => ({
 
 function RegisterComponent(){
     const classes = useStyles();
-  const [submitting, setSubmitting] = useState(false);
-  const [registerError, setRegisterError] = useState(false);
- const [formError, setFormError] = useState(true);
-  const [form, setForm] = useState({
-        name: '',
-        email: '',
-        password: '',
-        region: '',
-        city: '',
-        repeatPassword: '',
-        nickname: '',
-        birthdate: '1998-01-31'
-      });
-
-      const [errors, setErrors] = useState({
-        name: false,
-        email: false,
-        password: false,
-        region: false,
-        city: false,
-        repeatPassword: false,
-        nickname: false,
-        birthdate: false
-      });
-  
-    const handleClickShowPassword = () => {
-        setForm({ ...form, showPassword: !form.showPassword });
-      };
+    const [success, setSuccess] = useState(undefined);
+    const [regionSelected, setRegionSelected] = useState(undefined);
+    const [password, setPassword] = useState(undefined);
     
-      
-      const handleChange = prop => event => {
-        setForm({ ...form, [prop]: event.target.value });
-        
-        if(event.target.value === ''){
-          setErrors({...errors, [prop]: true});
-          setFormError(true);
-        }else if(prop === 'password' && event.target.value.length < 6){
-            setErrors({...errors, [prop]: true});
-            setFormError(true);
-        }else if(prop === 'repeatPassword' && event.target.value !== form.password){
-            setErrors({...errors, [prop]: true});
-            setFormError(true);
-        }else{
-          setErrors({...errors, [prop]: false});
-          setFormError(false);
-        }
-
-        if( form.city === '' || form.region ===''){
-            setFormError(true);
-        }else{
-            setFormError(false);
-        }   
-        
-        
-      };
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setSubmitting(true);
+    const onSubmit = async form => {
         const login = new LoginModel(null, form.email, form.password, null, null, null);
-        const client = new ClientModel(null, null, form.name, form.nickname, form.region.region, form.city, form.birthdate, null);
+        const client = new ClientModel(null, null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
         const model = {...login, ...client};
-        console.log(model);
         const resp = await loginService.register(model);
-        console.log(resp);
         if(resp.status === 'ERROR' || resp.status === 'FATAL' ){
-          setRegisterError(resp.error);
+          setSuccess(resp.error);
         }else if(resp.status === 'OK'){
-          setRegisterError(resp.data);
+          setSuccess(resp.data);
         }else{
-          setRegisterError(false);
+          setSuccess(false);
         }
-        //console.log(regiones.regiones);
-        //console.log(region);
-        //setRegisterError(true);
-        setSubmitting(false);
-      };
+
+    }
     
+    const required = value => (value ? undefined : 'Este campo es requerido');
+    const email = value => ( value.match(/[a-zA-Z]@/) ? undefined: 'El correo ingresado no es válido' );
+    const alphanumeric = value => ( value.match(/^[a-z\d\-_\s]+$/i) ? undefined: 'Debe ingresar sólo números y letras');
+    const minLength = min => value => value.length < min ? `Debe ingresar al menos ${min} caracteres`: undefined;
+    const maxLength = max => value => value.length > max ? `El límite de caracteres es de ${max}`: undefined;
+    const composeValidators = (...validators) => value => validators.reduce((error, validator) => error || validator(value), undefined);
+    const setFormPassword = value => setPassword(value);
+    const passwordMatch = pass => pass === password ? undefined : 'Las contraseñas no coinciden';
+    const validateDate = date => (date <= '1960-12-01') ? 'Debe indicar una fecha válida' : undefined;
+    
+    const selectRegion = region => {
+        regiones.regiones.forEach( reg => {
+            if(reg.region === region){
+                setRegionSelected(reg.comunas);
+            }
+        });
+    };
+
     return(
-<div className={classes.root}>
-<form id="loginForm" onSubmit={handleSubmit}>
-      <Grid container spacing={3}>
-      <Grid item xs={12} sm={12}>
-            <FormGroup>
-                <TextField 
-                    margin="dense"
-                    label="Ingrese su correo electrónico"
-                    value={form.email}
-                    onChange={handleChange('email')}
-                    required
-                    autoFocus
-                    type="email"
-                    error={errors.email}
-                    helperText={errors.email?"Debe ingresar su correo electrónico":""}
-                />
-            </FormGroup>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-            <FormGroup>
-                <TextField 
-                    margin="dense"
-                    label="Nombre"
-                    value={form.name}
-                    onChange={handleChange('name')}
-                    required
-                    error={errors.name}
-                    helperText={errors.name?"Debe ingresar su nombre":""}
-                />
-            </FormGroup>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-            <FormGroup>
-                <TextField 
-                    margin="dense"
-                    label="Ingrese su alias"
-                    value={form.nickname}
-                    onChange={handleChange('nickname')}
-                    error={errors.nickname}
-                    helperText={errors.nickname?"Debe ingresar su alias":""}
-                />
-          </FormGroup>
-        </Grid>
-        
-        <Grid item xs={12} sm={4}>
-            <FormGroup>
-            <TextField 
-                    margin="dense"
-                    label="Ingrese su fecha de nacimiento"
-                    defaultValue={form.birthdate}
-                    onChange={handleChange('birthdate')}
-                    required
-                    type="date"
-                    error={errors.birthdate}
-                    helperText={errors.birthdate?"Debe ingresar su fecha de nacimiento":""}
-                />
-            </FormGroup>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-            <FormGroup>
-            <FormControl>
-            <InputLabel htmlFor="age-helper">Seleccione su región *</InputLabel>
-                <Select
-                    value={form.region}
-                    onChange={handleChange('region')}
-                    autoWidth
-                    required
-                    >
-                    {regiones.regiones.map( region => (
-                        <MenuItem key={region.region} value={region}>{region.region}</MenuItem>
-                    ))}
-                    
-                </Select>
-            </FormControl>
-            </FormGroup>
-        </Grid>
-        
-        <Grid item xs={12} sm={6}>
-            <FormGroup>
-            <FormControl>
-            <InputLabel htmlFor="age-helper">Seleccione su ciudad *</InputLabel>
-                <Select
-                    value={form.city}
-                    onChange={handleChange('city')}
-                    autoWidth
-                    required
-                    >
-                    {form.region?form.region.comunas.map( comuna => (
-                        <MenuItem key={comuna} value={comuna}>{comuna}</MenuItem>
-                    )):<MenuItem value=''>Seleccione una región...</MenuItem>}
-                    
-                </Select>
-            </FormControl>
-            </FormGroup>
-        </Grid>
-        
-        
-        <Grid item xs={12} sm={6}>
-            <FormGroup>
-                <TextField 
-                    margin="dense"
-                    value={form.password}
-                    onChange={handleChange('password')}
-                    label="Ingrese su contraseña"
-                    type={form.showPassword ? 'text' : 'password'}
-                    InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              edge="end"
-                              aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
-                            >
-                            {form.showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                      required
-                      error={errors.password}
-                      helperText={errors.password?"La contraseña debe contener entre 6 y 12 caracteres":""}
-                />
-            </FormGroup>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-            <FormGroup>
-                <TextField 
-                    margin="dense"
-                    value={form.repeatPassword}
-                    onChange={handleChange('repeatPassword')}
-                    label="Repita su contraseña"
-                    type={form.showPassword ? 'text' : 'password'}
-                    
-                      required
-                      error={errors.repeatPassword}
-                      helperText={errors.repeatPassword?"Las contraseñas no coinciden":""}
-                />
-            </FormGroup>
-        </Grid>
-        <Grid item xs={12} sm={12}>
-            <FormGroup>
-                {registerError?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{registerError}</FormHelperText>:''}
-                <Button disabled={submitting || formError} type="submit" variant="contained" size="large" color="primary">
-                    Registrarse
-                    <ChevronRightIcon/>    
-                </Button>
-               
-            </FormGroup>
-        </Grid>
-      </Grid>
-      </form>
-      </div>
-
-
-       
-             
-              
-            
-               
-                
-             
-       
+        <div className={classes.root}>
+            <Form    
+                onSubmit={onSubmit}
+                render={({ handleSubmit, onChange, reset, submitting, pristine, invalid, value, values }) => (
+                <form onSubmit={handleSubmit}>      
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={12}>
+                            <FormGroup>
+                                <Field>
+                                    {({ meta }) => (
+                                    <div>
+                                        <Field
+                                            validate={composeValidators(required, email, minLength(10), maxLength(40))}
+                                            name="email"
+                                            type="text"
+                                            component={TextField}
+                                            label="Ingrese su correo electronico"
+                                            margin="dense"
+                                            fullWidth
+                                        />   
+                                        {meta.error && meta.touched && <span>{meta.error}</span>}
+                                    </div>
+                                    )}
+                                </Field>
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <FormGroup>
+                                <Field>
+                                    {({ meta }) => (
+                                    <div>
+                                        <Field
+                                            validate={composeValidators(required, alphanumeric, minLength(3), maxLength(20))}
+                                            name="name"
+                                            type="text"
+                                            component={TextField}
+                                            label="Nombre"
+                                            margin="dense"
+                                            fullWidth
+                                        />   
+                                        {meta.error && meta.touched && <span>{meta.error}</span>}
+                                    </div>
+                                    )}
+                                </Field>
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <FormGroup>
+                                <Field>
+                                    {({ meta }) => (
+                                    <div>
+                                        <Field
+                                            name="nickname"
+                                            type="text"
+                                            component={TextField}
+                                            label="Alias"
+                                            margin="dense"
+                                            fullWidth
+                                        />   
+                                        {meta.error && meta.touched && <span>{meta.error}</span>}
+                                    </div>
+                                    )}
+                                </Field>
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <FormGroup>
+                                <Field>
+                                    {({ meta }) => (
+                                    <div>
+                                        <Field
+                                            validate={composeValidators(required, validateDate)}
+                                            name="birthdate"
+                                            type="date"
+                                            component={TextField}
+                                            label="Fecha de nacimiento"
+                                            defaultValue="1960-12-01"
+                                            margin="dense"
+                                            fullWidth
+                                        />   
+                                        {meta.error && meta.touched && <span>{meta.error}</span>}
+                                    </div>
+                                    )}
+                                </Field>
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Field
+                                    validate={composeValidators(required, selectRegion)}
+                                    name="region"
+                                    label="seleccione region"
+                                    component={Select}
+                                >
+                                {regiones.regiones.map( (region, index) => (
+                                    <MenuItem key={index} value={region.region}>{region.region}</MenuItem>
+                                ))}                                
+                                </Field>
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Field
+                                    validate={required}
+                                    name="city"
+                                    label="seleccione ciudad"
+                                    component={Select}
+                                >
+                                {regionSelected?regionSelected.map( (comuna, index) => (
+                                    <MenuItem key={index} value={comuna}>{comuna}</MenuItem>
+                                )):<MenuItem value=''>Seleccione una región...</MenuItem>}                        
+                                </Field>
+                            </FormGroup>
+                        </Grid>   
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Field>
+                                    {({ meta }) => (
+                                    <div>
+                                        <Field
+                                            validate={composeValidators(required, alphanumeric, setFormPassword, minLength(6), maxLength(12))}
+                                            name="password"
+                                            type="password"
+                                            component={TextField}
+                                            label="Ingrese su contraseña"
+                                            margin="dense"
+                                            fullWidth
+                                        />   
+                                        {meta.error && meta.touched && <span>{meta.error}</span>}
+                                    </div>
+                                    )}
+                                </Field>                                
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Field >
+                                    {({ meta }) => (
+                                    <div>
+                                        <Field
+                                            validate={composeValidators(required, alphanumeric, passwordMatch, minLength(6), maxLength(12))}
+                                            name="repeatPassword"
+                                            type="password"
+                                            component={TextField}
+                                            label="Repita su contraseña"
+                                            margin="dense"
+                                            fullWidth
+                                        />   
+                                        {meta.error && meta.touched && <span>{meta.error}</span>}
+                                    </div>
+                                    )}
+                                </Field>
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                            <FormGroup>
+                                {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:''}
+                                <Button disabled={submitting || invalid} type="submit" variant="contained" size="large" color="primary">
+                                    Registrarse
+                                    <ChevronRightIcon/>    
+                                </Button> 
+                            </FormGroup>
+                        </Grid>
+                    </Grid>
+                </form>)}
+            />
+        </div>
     );
 }
 export default RegisterComponent;

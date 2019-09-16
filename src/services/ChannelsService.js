@@ -26,13 +26,21 @@ export default class ChannelsService{
 
     }
 
-    createChannel(){
-
+    createChannel(channel){
+        return ( new Promise( resolve => {
+            axios.post( config.apiurl + '/channels/create', channel, config.axios )
+                .then(resp => {
+                    resolve(resp.data);                    
+                })
+                .catch(err => {
+                    resolve({status:'ERROR', error: 'Ocurrió un error al conectar al servidor'});
+                });
+        }));
     }
 
-    deleteChannel(can_id){
+    deleteChannel(channel_id){
         return( new Promise( resolve => {
-            axios.delete( config.apiurl + '/channels/delete/' + can_id, config.axios)
+            axios.delete( config.apiurl + '/channels/delete/' + channel_id, config.axios)
                 .then(resp => {
                     resolve(resp.data);                    
                 })
