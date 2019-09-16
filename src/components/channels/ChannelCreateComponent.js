@@ -20,7 +20,7 @@ function ChannelCreateComponent(props){
     const channelsService = new ChannelsService(); 
     const [success, setSuccess] = useState(undefined);
     const onSubmit = async (values) => {
-        const channel = new ChannelModel(null, JSON.parse(localStorage.getItem('user')).id, null, values.name, values.password, null, null);    
+        const channel = new ChannelModel(null, localStorage.getItem('id'), null, values.name, values.password, null, null);    
         let resp = await channelsService.createChannel(channel);
         if(resp.status === 'OK'){
             setSuccess('Canal creado exitosamente');
