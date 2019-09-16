@@ -1,5 +1,4 @@
 import axios from 'axios';
-import ChannelModel from '../models/ChannelModel';
 import { config } from './ConfigService';
 export default class ChannelsService{
 
@@ -11,8 +10,8 @@ export default class ChannelsService{
 
     }
 
-    getChannelsByCliId(){
-
+    getChannelsByCliId(cli_id){
+        return axios.get( config.apiurl + '/channels/findbycliid/' + cli_id , config.axios);  
     }
 
     getChannelsBetween(){
@@ -31,8 +30,16 @@ export default class ChannelsService{
 
     }
 
-    deleteChannel(){
-
+    deleteChannel(can_id){
+        return( new Promise( resolve => {
+            axios.delete( config.apiurl + '/channels/delete/' + can_id, config.axios)
+                .then(resp => {
+                    resolve(resp.data);                    
+                })
+                .catch(err => {
+                    resolve({status:'ERROR', error: 'Ocurrió un error al conectar al servidor'});
+                });
+        }));
     }
 
 }
