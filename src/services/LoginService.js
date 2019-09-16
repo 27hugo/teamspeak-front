@@ -11,7 +11,8 @@ export default class LoginService{
                     var user = jwt.decode(resp.data.data);
                     localStorage.setItem('logueado', true);
                     localStorage.setItem('token', resp.data.data);
-                    localStorage.setItem('user', JSON.stringify(user) );
+                    localStorage.setItem('email', user.email );
+                    localStorage.setItem('id', user.id);
                    
                 }
                 resolve(resp.data);
@@ -34,8 +35,16 @@ export default class LoginService{
         }));
     }
 
-    changePassword(){
-
+    changePassword(user){
+        return ( new Promise( resolve => {
+            axios.put(config.apiurl + '/login/changepassword', user, config.axios)
+            .then( resp => {
+                resolve(resp.data);
+            })
+            .catch( err => {
+                resolve({status: 'ERROR', error: 'Error al conectar con el servidor'});
+            });
+        }));
     }
 
 }
