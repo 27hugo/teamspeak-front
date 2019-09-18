@@ -4,12 +4,14 @@ import LoginModalComponent from './components/login/LoginModalComponent';
 import ClientChannelsComponent from './components/clients/ClientChannelsComponent';
 import ChannelCreateComponent from './components/channels/ChannelCreateComponent';
 import FooterComponent from './components/footer/FooterComponent';
+import NavbarComponent from './components/navbar/NavbarComponent';
 
 function App() {
   return (
     <div>
       <div>
         <Router>
+          <NavbarComponent/>
           <Route path="/channels/create" exact component={ChannelCreateComponent} />
           <Route path="/channels" exact component={ClientChannelsComponent} />
           <Route path="/login" exact component={LoginModalComponent} />
