@@ -1,9 +1,38 @@
 import React from 'react';
-import ClientModel from '../../models/ClientModel';
-import ClientsService from '../../services/ClientsService';
-
+import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import SectionInfoComponent from './SectionInfoComponent';
+import HeaderComponent from './HeaderComponent';
+import AdminsComponent from './AdminsComponent';
+import FaqComponent from './FaqComponent';
+const useStyles = makeStyles(theme => ({
+    container:{
+        justifyContent: "center",
+        flexGrow: 1,
+    },
+    imagedivider:{
+        height: "400px",
+        backgroundImage: "url('https://owc.cl/assets/images/wp2.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "0px"
+    }
+  }));
 function HomeComponent(){
-    return(<div>HomeComponent</div>);
+    const classes = useStyles();
+    return(
+        
+        <Grid className={classes.container} container>
+            
+            <HeaderComponent/>
+            <SectionInfoComponent/>
+            <AdminsComponent/>
+            <Grid className={classes.section} item xs={12}>
+                <div className={classes.imagedivider}></div>
+            </Grid>
+            <FaqComponent/>
+            
+        </Grid>
+    );
 }
 
 export default HomeComponent;
