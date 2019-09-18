@@ -5,17 +5,28 @@ import ClientChannelsComponent from './components/clients/ClientChannelsComponen
 import ChannelCreateComponent from './components/channels/ChannelCreateComponent';
 import UpdateClientComponent from './components/clients/UpdateClientComponent';
 import ChangePasswordComponent from './components/clients/ChangePasswordComponent';
+import HomeComponent from './components/home/HomeComponent';
+import FooterComponent from './components/footer/FooterComponent';
+import NavbarComponent from './components/navbar/NavbarComponent';
+
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Route path="/account/changepassword" exact component={ChangePasswordComponent} />
-        <Route path="/account/update" exact component={UpdateClientComponent} />
-        <Route path="/channels/create" exact component={ChannelCreateComponent} />
-        <Route path="/channels" exact component={ClientChannelsComponent} />
-        <Route path="/login" exact component={LoginModalComponent} />
-      </Router>
+    <div>
+      <div>
+        <Router>
+          <NavbarComponent/>
+          <Route path="/" exact component={HomeComponent} />
+          <Route path="/account/changepassword" exact component={ChangePasswordComponent} />
+          <Route path="/account/update" exact component={UpdateClientComponent} />
+          <Route path="/channels/create" exact component={ChannelCreateComponent} />
+          <Route path="/channels" exact component={ClientChannelsComponent} />
+          <Route path="/login" exact component={LoginModalComponent} />
+        </Router>
+      </div>
+      <div style={{backgroundColor: "black", color: "white"}}>
+        <FooterComponent/>
+      </div>
     </div>
   );
 }
