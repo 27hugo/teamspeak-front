@@ -6,11 +6,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
 import { Select } from 'final-form-material-ui';
-//import LoginService from '../../services/LoginService';
 import ClientsService from '../../services/ClientsService';
 import ClientModel from '../../models/ClientModel';
 import regiones from '../../utils/RegionesService.json';
-//const loginService = new LoginService();
 const clientsService = new ClientsService();
 
 const useStyles = makeStyles(theme => ({
@@ -25,8 +23,11 @@ const useStyles = makeStyles(theme => ({
       }
 }));
 
-function UpdateClientComponent(){
-
+function UpdateClientComponent(props){
+    const classes = useStyles();
+    const [success, setSuccess] = useState(undefined);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [regionSelected, setRegionSelected] = useState(undefined);
     const [client, setClient] = useState();
     const [state, setState] = useState({
         isLoading: true,
@@ -35,6 +36,7 @@ function UpdateClientComponent(){
     });
 
     useEffect( () => {
+        if( localStorage.getItem('logueado') ){
         clientsService.getClientById(localStorage.getItem('id'))
             .then(resp => {
                 resp = resp.data;
@@ -49,16 +51,17 @@ function UpdateClientComponent(){
             .catch(err => {
                 setState({isLoading: false, hasErrors:true, error: 'Ocurrió un error al conectar con el servidor'});
             });
-       
+        }
         
     }, []);
-
-
-    const classes = useStyles();
-    const [success, setSuccess] = useState(undefined);
-    const [regionSelected, setRegionSelected] = useState(undefined);
     
+    if ( !localStorage.getItem('logueado') ) { 
+        props.history.push('/login');
+        return null;
+    }
+
     const onSubmit = async form => {
+        setIsSubmitting(true);
         const client = new ClientModel(localStorage.getItem('id'), null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
         const resp = await clientsService.updateClient(client);
         if( resp.status === 'ERROR' || resp.status === 'FATAL'){
@@ -67,6 +70,7 @@ function UpdateClientComponent(){
         if( resp.status === 'OK'){
             setSuccess(resp.data);
         }
+        setIsSubmitting(false);
     }
     
     const required = value => (value ? undefined : 'Este campo es requerido');
@@ -216,7 +220,7 @@ function UpdateClientComponent(){
                                 {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:''}
                                 <Button disabled={submitting || invalid} type="submit" variant="contained" size="large" color="primary">
                                     Actualizar datos
-                                    <ChevronRightIcon/>    
+                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}    
                                 </Button> 
                             </FormGroup>
                         </Grid>

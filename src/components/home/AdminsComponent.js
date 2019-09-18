@@ -62,21 +62,21 @@ function AdminsComponent(){
                         {( isLoading ? Array.from(new Array(3)) : admins).map( (admin, i) => (
                             <Grid key={i} item xs={12} sm={6} md={4}>
                                 <div className={classes.card}>
+                                        <CardMedia style={{justifyContent:"center",justifyItems:"center", justifySelf:"center" ,textAlign:"center"}}>
                                        {admin ? (
-                                        <CardMedia style={{textAlign:"center"}}>
                                         <img alt={i} className={classes.media} src={admin.avatarFull}/>
-                                        </CardMedia>
-                                        ) : (
-                                            <Skeleton className={classes.media}/>
-                                        )}
                                         
+                                        ) : (
+                                            <Skeleton width="100%" height={100} />
+                                        )}
+                                        </CardMedia>
                                         <CardContent className={classes.cardContent} >
                                         {admin ? (
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {admin.steamID}
                                         </Typography>
                                         ) : (
-                                            <Skeleton component="h2"/>
+                                            <Skeleton width="100%" component="h2"/>
                                         )}
                                         
                                         {admin ? (
@@ -85,7 +85,7 @@ function AdminsComponent(){
                                             {admin.location ? admin.location : 'No registra ciudad'}
                                         </Typography>
                                         ) : (
-                                            <Skeleton component="p"/>
+                                            <Skeleton width="60%"/>
                                         )}
                                         </CardContent>
                                     

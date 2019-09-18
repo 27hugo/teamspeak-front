@@ -13,7 +13,10 @@ export default class LoginService{
                     localStorage.setItem('token', resp.data.data);
                     localStorage.setItem('email', user.email );
                     localStorage.setItem('id', user.id);
-                   
+                    /*console.log("Son las         "+Math.floor(new Date().getTime() / 1000));
+                    console.log("Creado a las    "+user.iat);
+                    console.log("Expira a las    "+user.exp);
+                    console.log("Tiempo de token "+(user.exp-user.iat));*/
                 }
                 resolve(resp.data);
             })

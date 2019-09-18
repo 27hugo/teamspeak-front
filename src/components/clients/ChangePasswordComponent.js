@@ -4,6 +4,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import LoginModel from '../../models/LoginModel';
 import LoginService from '../../services/LoginService';
 const loginService = new LoginService();
@@ -25,8 +26,9 @@ function ChangePasswordComponent(){
     
     const classes = useStyles();
     const [success, setSuccess] = useState(undefined);
-    
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const onSubmit = async form => {
+        setIsSubmitting(true);
         const login = new LoginModel(localStorage.getItem('id'), form.email, form.password, null, null, null);
         const resp = await loginService.changePassword(login);
         if(resp.status === 'ERROR' || resp.status === 'FATAL'){
@@ -35,6 +37,7 @@ function ChangePasswordComponent(){
         if(resp.status === 'OK'){
             setSuccess(resp.data);
         }
+        setIsSubmitting(false);
     }
     
     const required = value => (value ? undefined : 'Este campo es requerido');
@@ -101,7 +104,7 @@ function ChangePasswordComponent(){
                                 {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:''}
                                 <Button disabled={submitting || invalid} type="submit" variant="contained" size="large" color="primary">
                                     Cambiar contraseña
-                                    <ChevronRightIcon/>    
+                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}     
                                 </Button> 
                             </FormGroup>
                         </Grid>

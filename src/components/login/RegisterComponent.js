@@ -3,7 +3,7 @@ import { MenuItem, Grid, Button, FormGroup, FormHelperText } from '@material-ui/
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginModel from '../../models/LoginModel';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
 import { Select } from 'final-form-material-ui';
@@ -27,10 +27,12 @@ const useStyles = makeStyles(theme => ({
 function RegisterComponent(){
     const classes = useStyles();
     const [success, setSuccess] = useState(undefined);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [regionSelected, setRegionSelected] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     
     const onSubmit = async form => {
+        setIsSubmitting(true);
         const login = new LoginModel(null, form.email, form.password, null, null, null);
         const client = new ClientModel(null, null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
         const model = {...login, ...client};
@@ -42,6 +44,7 @@ function RegisterComponent(){
         }else{
           setSuccess(false);
         }
+        setIsSubmitting(false);
 
     }
     
@@ -223,7 +226,7 @@ function RegisterComponent(){
                                 {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:''}
                                 <Button disabled={submitting || invalid} type="submit" variant="contained" size="large" color="primary">
                                     Registrarse
-                                    <ChevronRightIcon/>    
+                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}      
                                 </Button> 
                             </FormGroup>
                         </Grid>

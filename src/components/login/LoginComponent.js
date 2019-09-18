@@ -8,18 +8,21 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import LoginService from '../../services/LoginService';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 const loginService = new LoginService();
 
 const useStyles = makeStyles(theme => ({
-    formControl: {
+  root:{
+    padding: 15
+  }, 
+  formControl: {
         padding: 0,
         marginTop: 5,
         marginBottom: 5
     },
 }));
 
-function LoginComponent(){
+function LoginComponent(props){
     const classes = useStyles();
   const [submitting, setSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(false);
@@ -49,19 +52,21 @@ function LoginComponent(){
 
       };
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault(); 
         setSubmitting(true);
         const login = new LoginModel(null, form.email, form.password, null, null, null);
         const resp = await loginService.login(login);
-        if(resp.status === 'ERROR' ){
+        if(resp.status === 'ERROR' || resp.status === 'FATAL' ){
           setLoginError(resp.error);
         }else{
           setLoginError(false);
+          document.location.href='/';
         }
         setSubmitting(false);
       };
     
     return(
+        <div className={classes.root}>
         <form id="loginForm" onSubmit={handleSubmit}>
             <FormGroup className={classes.formControl}>
                 <TextField 
@@ -104,10 +109,12 @@ function LoginComponent(){
             {loginError?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{loginError}</FormHelperText>:''}
             <Button disabled={submitting || form.email === '' || form.password === '' || errors.password} type="submit" variant="contained" size="large" color="primary">
                 Iniciar Sesion
-                <ChevronRightIcon/>    
+                {submitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}
+                  
             </Button>
             <a style={{ marginLeft: 10 }} href="google.cl">¿Ha olvidado su contraseña?</a>
         </form>
+        </div>
     );
 }
 export default LoginComponent;

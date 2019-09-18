@@ -8,9 +8,12 @@ import ChangePasswordComponent from './components/clients/ChangePasswordComponen
 import HomeComponent from './components/home/HomeComponent';
 import FooterComponent from './components/footer/FooterComponent';
 import NavbarComponent from './components/navbar/NavbarComponent';
-
+import TokenService from './services/TokenService';
+const token = new TokenService();
+token.validateTokenTime();
 
 function App() {
+
   return (
     <div>
       <div>

@@ -26,9 +26,6 @@ function HomeComponent(){
             <HeaderComponent/>
             <SectionInfoComponent/>
             <AdminsComponent/>
-            <Grid className={classes.section} item xs={12}>
-                <div className={classes.imagedivider}></div>
-            </Grid>
             <FaqComponent/>
             
         </Grid>
