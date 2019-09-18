@@ -43,7 +43,7 @@ function ClientChannelsComponent(props){
   
     useEffect( () => {     
             if( localStorage.getItem('logueado') ){
-                channelsService.getChannelsByCliId( JSON.parse(localStorage.getItem('user')).id )
+                channelsService.getChannelsByCliId( localStorage.getItem('id') )
                 .then( canales => {
                     setCanales(canales.data.data);
                     setLoading(false);
@@ -71,7 +71,7 @@ function ClientChannelsComponent(props){
             <div>
                 <Grid item md={3}>
                     <Typography variant="h6" className={classes.title}>
-                        Canales cliente {JSON.parse(localStorage.getItem('user')).email}
+                        Canales cliente {localStorage.getItem('email')}
                     </Typography>
                     <div className={classes.demo}>
                         <List>
@@ -88,7 +88,7 @@ function ClientChannelsComponent(props){
             <div>
                 <Grid item md={3}>
                 <Typography variant="h6" className={classes.title}>
-                    Canales cliente {JSON.parse(localStorage.getItem('user')).email}
+                    Canales cliente {localStorage.getItem('email')}
                 </Typography>
                 <div className={classes.demo}>
                 <List>
