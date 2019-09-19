@@ -26,14 +26,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(3),
     flexGrow: 1,
   },
-  link:{
-    flexGrow: 1,
-  },
-  a: {
-    textDecoration: "none",
-    marginRight: 15,
-    color : "white"
-  },
   links:{
     color: "#000",
       textDecoration: "none"
@@ -73,12 +65,7 @@ function NavbarComponent(props) {
             <Link className={classes.links} style={{color:"white"}} to={'/'}>OWC</Link>
           </Typography>
 
-          <Typography variant="h6" className={classes.link}>
-            <a className={classes.a} href="#info">Crar canales</a>
-            <a className={classes.a} href="#admins">Admins</a>
-            <a className={classes.a} href="#faq">Preguntas Frecuentes</a>
-          </Typography>
-          
+
           
           {auth ? (
             <div>
