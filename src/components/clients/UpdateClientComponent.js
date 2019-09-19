@@ -190,7 +190,7 @@ function UpdateClientComponent(props){
                                     component={Select}
                                 >
                                 {regiones.regiones.map( (region, index) => (
-                                    <MenuItem key={index} value={region.region}>{region.region}</MenuItem>
+                                    <MenuItem key={region} value={region.region}>{region.region}</MenuItem>
                                 ))}                                
                                 </Field>
                             </FormGroup>

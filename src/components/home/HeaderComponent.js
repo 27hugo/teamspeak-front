@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     headerTitle:{
         margin: "auto",
         color: "#FFAA4B",
-        fontSize: "2rem",
+        fontSize: "8rem",
         textShadow: "2px 2px #ff0000",
     },
 
@@ -29,7 +29,7 @@ function HeaderComponent(){
                 style={{ backgroundColor: 'teal' }}
             >
                 <Grid item>
-                    <h2 className={classes.headerTitle}>BIENVENIDO A OWC</h2>
+                    <h2 className={classes.headerTitle}>OWC</h2>
                     <p style={{color:"#FFAA4B", fontSize:"1.5rem"}}>Registrate y crea un canal de ts3 gratis</p>
                 </Grid>
             </Grid>

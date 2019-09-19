@@ -14,6 +14,8 @@ export default class LoginService{
                     localStorage.setItem('email', user.email );
                     localStorage.setItem('id', user.id);
                     localStorage.setItem('tipo', user.tipo);
+                    localStorage.setItem('nombre', user.nombre);
+                    localStorage.setItem('alias', user.alias);
                     /*console.log("Son las         "+Math.floor(new Date().getTime() / 1000));
                     console.log("Creado a las    "+user.iat);
                     console.log("Expira a las    "+user.exp);

@@ -71,8 +71,8 @@ function LoginModalComponent(){
             <Grid className={register? classes.buttonpressed : classes.button} onClick={() => setRegister(true)} item xs={6}>REGISTRARSE</Grid>  
           </Grid>
         <Grid container className={classes.body} >
-            <Grid item xs={12} lg={register ? 11 : 7}>
-            {register ? <RegisterComponent/> : <LoginComponent/>}
+            <Grid item xs={12} sm={register ? 11 : 8} md={register ? 10 : 6} lg={register ? 11 : 6}>
+            {register ? <RegisterComponent/> : <div style={{marginTop:30, marginBottom: 20}}><LoginComponent/></div>}
             </Grid>
         </Grid>
         <Modal.Footer className={classes.footer}>

@@ -53,10 +53,10 @@ function AdminsComponent(){
 
 
     return(
-            <Grid className={classes.section} item xs={11} md={7}>
+            <Grid id="admins" className={classes.section} style={{marginTop: 30}} item xs={11} sm={10} md={9} lg={7}>
                     
-                    <h3><b>Administradores / Soporte</b></h3>
-                    <p>Puedes contactarte con nosotros directamente desde steam ante cualquier problema clickeando los perfiles.</p>
+                    <Typography variant="h5">Administradores / Soporte</Typography>
+                    <Typography variant="body2">Puedes contactarte con nosotros directamente desde steam ante cualquier problema contactandonos a los perfiles.</Typography>
                     
                     <Grid container justify="center">
                         {( isLoading ? Array.from(new Array(3)) : admins).map( (admin, i) => (
