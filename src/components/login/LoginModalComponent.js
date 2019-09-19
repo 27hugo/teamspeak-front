@@ -1,22 +1,53 @@
 import React, { useState } from 'react';
 import LoginComponent from './LoginComponent';
 import RegisterComponent from './RegisterComponent';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button, Modal} from 'react-bootstrap';
 const useStyles = makeStyles(theme => ({
-    root: {
-        width: "30%"
+    modal:{
+        paddingTop: "20vh",
+        backgroundColor: "#120E29",
     },
-    button: {
-        margin: theme.spacing(1),
-      },
+    header:{
+        border: 0,
+        justifyContent:"center",
+        textAlign: "center"
+    },
+    button:{
+        color: "#e00",
+        padding: 15,
+        backgroundColor: "#E79039"
+    },
+    buttonpressed: {
+        fontWeight: 700,
+        color: "#fff",
+        padding: 15,
+        backgroundColor: "#E3692C   "
+    },
+    body: {
+        justifyContent:"center",
+        textAlign: "center",
+        border: 0
+    },
+    footer: {
+        border: 0,
+        borderRadius: 0
+    }
 }));
+
+
+
 function LoginModalComponent(){
     const classes = useStyles();
     const [register, setRegister] = useState(false);
+    const [show, setShow] = useState(false);
 
-    return(
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    /*return(
         <div className={classes.root}>
             <Button onClick={() => setRegister(false)} variant="contained" color="primary" className={classes.button}>
                 Login
@@ -26,6 +57,32 @@ function LoginModalComponent(){
             </Button>
             {register ? <RegisterComponent/> : <LoginComponent/>}
         </div>
+    );*/
+    return(
+    
+    <div>
+     <Button variant="primary" onClick={handleShow}>
+        Iniciar sesión
+      </Button>
+
+      <Modal size="lg" className={classes.modal} show={show} onHide={handleClose}>
+        <Grid className={classes.header} container>
+            <Grid className={!register? classes.buttonpressed: classes.button} onClick={() => setRegister(false)} item xs={6}>INICIAR SESION</Grid>
+            <Grid className={register? classes.buttonpressed : classes.button} onClick={() => setRegister(true)} item xs={6}>REGISTRARSE</Grid>  
+          </Grid>
+        <Grid container className={classes.body} >
+            <Grid item xs={12} lg={register ? 11 : 7}>
+            {register ? <RegisterComponent/> : <LoginComponent/>}
+            </Grid>
+        </Grid>
+        <Modal.Footer className={classes.footer}>
+          <Button style={{borderRadius: 0}} variant="danger" onClick={handleClose}>
+            Cerrar ventana
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    
+    </div>
     );
     
 }

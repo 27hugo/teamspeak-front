@@ -9,7 +9,10 @@ import {Link} from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import LoginModalComponent from '../login/LoginModalComponent';
+import './NavbarComponent.css';
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -25,6 +28,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   links:{
+    color: "#000",
       textDecoration: "none"
   }
 }));
@@ -86,21 +90,14 @@ function NavbarComponent(props) {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>
-                    <Link className={classes.links} to={'/account/changepassword'}>Cambiar contraseña</Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <Link className={classes.links} to={'/account/update'}>Actualizar datos</Link>
-                </MenuItem>
-                <MenuItem onClick={logout}>
-                    <Link className={classes.links} onClick={logout} to={'/'}>Cerrar Sesión</Link>
-                </MenuItem>
+                
+                    <Link className={classes.links} to={'/admin'}><MenuItem onClick={handleClose}>Mis canales </MenuItem></Link>
+                    <Link className={classes.links} onClick={logout} to={'/'}><MenuItem onClick={logout}>Cerrar Sesión</MenuItem></Link>
+                
               </Menu>
             </div>
           ) : (
-            <Button variant="contained" color="primary" className={classes.button}>
-              <Link className={classes.links} style={{color: "white"}} to={'/login'}>Login</Link>
-            </Button>
+            <LoginModalComponent/>
           )}
         </Toolbar>
       </AppBar>

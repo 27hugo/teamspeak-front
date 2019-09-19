@@ -104,7 +104,7 @@ function ChangePasswordComponent(){
                                 {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:''}
                                 <Button disabled={submitting || invalid} type="submit" variant="contained" size="large" color="primary">
                                     Cambiar contraseña
-                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}     
+                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={18} />  :  <ChevronRightIcon/>}     
                                 </Button> 
                             </FormGroup>
                         </Grid>

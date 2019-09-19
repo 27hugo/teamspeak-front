@@ -53,14 +53,14 @@ function AdminsComponent(){
 
 
     return(
-            <Grid className={classes.section} item xs={7}>
+            <Grid className={classes.section} item xs={11} md={7}>
                     
                     <h3><b>Administradores / Soporte</b></h3>
                     <p>Puedes contactarte con nosotros directamente desde steam ante cualquier problema clickeando los perfiles.</p>
                     
                     <Grid container justify="center">
                         {( isLoading ? Array.from(new Array(3)) : admins).map( (admin, i) => (
-                            <Grid key={i} item xs={12} sm={6} md={4}>
+                            <Grid key={i} item xs={6} sm={6} md={4}>
                                 <div className={classes.card}>
                                         <CardMedia style={{justifyContent:"center",justifyItems:"center", justifySelf:"center" ,textAlign:"center"}}>
                                        {admin ? (

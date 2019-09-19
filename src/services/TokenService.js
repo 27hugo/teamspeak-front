@@ -10,8 +10,10 @@ export default class TokenService{
             console.log("Expira a las    "+user.exp);
             console.log("Tiempo de token "+(user.exp-user.iat));*/
             if(time >= user.exp){
-                //console.log('el token expiró');
+                console.log('el token expiró');
                 localStorage.clear();
+                document.location.href='/';
+                document.location.reload();
             }
         }
     }

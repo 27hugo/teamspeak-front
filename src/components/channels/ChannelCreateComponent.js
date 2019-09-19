@@ -6,7 +6,7 @@ import ChannelModel from '../../models/ChannelModel';
 import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
 import ChannelsService from '../../services/ChannelsService';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles(theme => ({
     formControl: {
         padding: 0,
@@ -19,7 +19,9 @@ function ChannelCreateComponent(props){
     const classes = useStyles();
     const channelsService = new ChannelsService(); 
     const [success, setSuccess] = useState(undefined);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const onSubmit = async (values) => {
+        setIsSubmitting(true);
         const channel = new ChannelModel(null, localStorage.getItem('id'), null, values.name, values.password, null, null);    
         let resp = await channelsService.createChannel(channel);
         if(resp.status === 'OK'){
@@ -28,10 +30,7 @@ function ChannelCreateComponent(props){
         if(resp.status === 'ERROR' || resp.status === 'FATAL'){
             setSuccess(resp.error);
         }
-    }
-    if ( !localStorage.getItem('logueado') ) { 
-        props.history.push('/login');
-        return null;
+        setIsSubmitting(false);
     }
     const required = value => (value ? undefined : 'Este campo es requerido');
     const alphanumeric = value => ( value.match(/^[a-z\d\-_\s]+$/i) ? undefined: 'Debe ingresar sólo números y letras');
@@ -87,7 +86,7 @@ function ChannelCreateComponent(props){
                 {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:null}
                 <Button disabled={submitting || pristine || invalid} type="submit" variant="contained" size="large" color="primary">
                     Crear canal
-                    <ChevronRightIcon/>    
+                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={18} />  :  <ChevronRightIcon/>}     
                 </Button>
             </form>
             )}

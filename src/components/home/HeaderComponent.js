@@ -6,12 +6,12 @@ const useStyles = makeStyles(theme => ({
     header:{
         backgroundImage: "url('https://owc.cl/assets/images/wp1.jpg')",
         backgroundAttachment: "fixed",
-        height: "70vh"
+        height: "100vh"
     },
     headerTitle:{
         margin: "auto",
         color: "#FFAA4B",
-        fontSize: "5rem",
+        fontSize: "2rem",
         textShadow: "2px 2px #ff0000",
     },
 

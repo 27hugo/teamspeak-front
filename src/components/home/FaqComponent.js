@@ -13,7 +13,7 @@ function FaqComponent(){
     const classes = useStyles();
     return(          
             
-            <Grid className={classes.section} item lg={7}>
+            <Grid className={classes.section} item xs={11} md={7}>
                 <div>
                     <h1>Preguntas Frecuentes</h1>
                     <div>

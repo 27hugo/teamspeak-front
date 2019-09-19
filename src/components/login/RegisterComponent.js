@@ -33,7 +33,7 @@ function RegisterComponent(){
     
     const onSubmit = async form => {
         setIsSubmitting(true);
-        const login = new LoginModel(null, form.email, form.password, null, null, null);
+        const login = new LoginModel(null, form.email, form.password, null, null, null, null);
         const client = new ClientModel(null, null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
         const model = {...login, ...client};
         const resp = await loginService.register(model);
@@ -113,7 +113,7 @@ function RegisterComponent(){
                                 </Field>
                             </FormGroup>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={6} sm={4}>
                             <FormGroup>
                                 <Field>
                                     {({ meta }) => (
@@ -132,7 +132,7 @@ function RegisterComponent(){
                                 </Field>
                             </FormGroup>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={6} sm={4}>
                             <FormGroup>
                                 <Field>
                                     {({ meta }) => (
@@ -226,7 +226,7 @@ function RegisterComponent(){
                                 {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:''}
                                 <Button disabled={submitting || invalid} type="submit" variant="contained" size="large" color="primary">
                                     Registrarse
-                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}      
+                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={18} />  :  <ChevronRightIcon/>}      
                                 </Button> 
                             </FormGroup>
                         </Grid>

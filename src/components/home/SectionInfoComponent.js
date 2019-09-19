@@ -13,7 +13,7 @@ function SectionInfoComponent(){
     const classes = useStyles();
     return(
 
-            <Grid className={classes.section} item xs={7}>
+            <Grid className={classes.section} item xs={11} md={7}>
                 <h3>Dirección IP TS3: owc.cl</h3>
                 <h1>Canales gratuitos para usuarios nuevos</h1>
                 <p>* Para poder crear canales debes iniciar sesión, es <b>gratis</b>!.</p>

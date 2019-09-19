@@ -36,26 +36,23 @@ function ClientChannelsComponent(props){
     const classes = useStyles();
     const [canales, setCanales] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [submitting, setSubmitting] = useState({state: false, index: null});
     const [deleteError, setDeleteError] = useState({
         state: false,
         error: ''
     });
   
     useEffect( () => {     
-            if( localStorage.getItem('logueado') ){
                 channelsService.getChannelsByCliId( localStorage.getItem('id') )
                 .then( canales => {
                     setCanales(canales.data.data);
                     setLoading(false);
                 });
-            }
+            
     }, []);
     
-    if ( !localStorage.getItem('logueado') ) { 
-        props.history.push('/login');
-        return null;
-    }
     const deleteChannel = async (can_id, index) => {
+        setSubmitting(true);
         var resp = await channelsService.deleteChannel(can_id);
         if(resp.status === 'OK'){
             canales.splice(index, 1);
@@ -64,6 +61,7 @@ function ClientChannelsComponent(props){
         if(resp.status === 'ERROR' || resp.status === 'FATAL'){
             setDeleteError({state:true, error: resp.error});
         }
+        setSubmitting(false);
     }
 
     if( loading ){
@@ -104,30 +102,27 @@ function ClientChannelsComponent(props){
                             secondary={canal.can_creacion}
                         />
                         <ListItemSecondaryAction>
-                        <IconButton onClick={() => deleteChannel(canal.can_id, index)} edge="end">
-                            <DeleteIcon  />
+                        <IconButton disabled={submitting.state && submitting.index === index ? true : false} onClick={() => {deleteChannel(canal.can_id, index); setSubmitting({state: true, index: index})}} edge="end">
+                            { submitting.state && submitting.index === index ? <CircularProgress /> : <DeleteIcon />}
                         </IconButton>
                         </ListItemSecondaryAction>
                     </ListItem>    
                 )):
-                    <div className={classes.demo}>
                     <List>
                         <ListItem>
                             <ListItemText
+                                
                                 primary="No has creado ningún canal aún"
                             />
                         </ListItem>
                     </List>
-                    </div>
                 }
                 </List>
                 {deleteError.state?
                 <div className={classes.demo}>
                 <List>
                     <ListItem>
-                        <Avatar>
-                            <FolderIcon />
-                        </Avatar>
+
                         <ListItemText
                             primary={deleteError.error}
                         />

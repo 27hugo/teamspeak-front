@@ -36,7 +36,6 @@ function UpdateClientComponent(props){
     });
 
     useEffect( () => {
-        if( localStorage.getItem('logueado') ){
         clientsService.getClientById(localStorage.getItem('id'))
             .then(resp => {
                 resp = resp.data;
@@ -51,15 +50,10 @@ function UpdateClientComponent(props){
             .catch(err => {
                 setState({isLoading: false, hasErrors:true, error: 'Ocurrió un error al conectar con el servidor'});
             });
-        }
+        
         
     }, []);
     
-    if ( !localStorage.getItem('logueado') ) { 
-        props.history.push('/login');
-        return null;
-    }
-
     const onSubmit = async form => {
         setIsSubmitting(true);
         const client = new ClientModel(localStorage.getItem('id'), null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
@@ -220,7 +214,7 @@ function UpdateClientComponent(props){
                                 {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:''}
                                 <Button disabled={submitting || invalid} type="submit" variant="contained" size="large" color="primary">
                                     Actualizar datos
-                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}    
+                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={18} />  :  <ChevronRightIcon/>}    
                                 </Button> 
                             </FormGroup>
                         </Grid>
