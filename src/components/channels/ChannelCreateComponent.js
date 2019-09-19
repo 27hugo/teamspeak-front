@@ -8,6 +8,9 @@ import {TextField} from 'final-form-material-ui';
 import ChannelsService from '../../services/ChannelsService';
 import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles(theme => ({
+    root:{
+        padding:15
+    },
     formControl: {
         padding: 0,
         marginTop: 5,
@@ -41,6 +44,8 @@ function ChannelCreateComponent(props){
 
 
     return(
+        <div className={classes.root}>
+            
         <Form
             onSubmit={onSubmit}
             render={({ handleSubmit, reset, submitting, pristine, invalid }) => (
@@ -58,6 +63,7 @@ function ChannelCreateComponent(props){
                                 margin="dense"
                                 variant="outlined"
                                 fullWidth
+                                autoComplete="off"
                             />   
                             {meta.error && meta.touched && <span>{meta.error}</span>}
                         </div>
@@ -77,6 +83,7 @@ function ChannelCreateComponent(props){
                                 margin="dense"
                                 variant="outlined"
                                 fullWidth
+                                autoComplete="off"
                             />   
                             {meta.error && meta.touched && <span>{meta.error}</span>}
                         </div>
@@ -91,6 +98,7 @@ function ChannelCreateComponent(props){
             </form>
             )}
         />
+        </div>
     );
 }
 export default ChannelCreateComponent;

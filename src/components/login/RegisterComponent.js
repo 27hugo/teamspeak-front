@@ -86,6 +86,7 @@ function RegisterComponent(){
                                             label="Ingrese su correo electronico"
                                             margin="dense"
                                             fullWidth
+                                            autoComplete="off"
                                         />   
                                         {meta.error && meta.touched && <span>{meta.error}</span>}
                                     </div>
@@ -106,6 +107,7 @@ function RegisterComponent(){
                                             label="Nombre"
                                             margin="dense"
                                             fullWidth
+                                            autoComplete="off"
                                         />   
                                         {meta.error && meta.touched && <span>{meta.error}</span>}
                                     </div>
@@ -125,6 +127,7 @@ function RegisterComponent(){
                                             label="Alias"
                                             margin="dense"
                                             fullWidth
+                                            autoComplete="off"
                                         />   
                                         {meta.error && meta.touched && <span>{meta.error}</span>}
                                     </div>
@@ -194,6 +197,7 @@ function RegisterComponent(){
                                             label="Ingrese su contraseña"
                                             margin="dense"
                                             fullWidth
+                                            autoComplete="off"
                                         />   
                                         {meta.error && meta.touched && <span>{meta.error}</span>}
                                     </div>
@@ -214,6 +218,7 @@ function RegisterComponent(){
                                             label="Repita su contraseña"
                                             margin="dense"
                                             fullWidth
+                                            autoComplete="off"
                                         />   
                                         {meta.error && meta.touched && <span>{meta.error}</span>}
                                     </div>

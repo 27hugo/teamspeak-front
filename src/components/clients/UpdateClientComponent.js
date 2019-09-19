@@ -85,6 +85,7 @@ function UpdateClientComponent(props){
 
     return(
         <div className={classes.root}>
+            
 
             {state.isLoading ? <CircularProgress/>:null}
             {state.isLoading || state.hasErrors ? <p>{state.error}</p>:

@@ -18,7 +18,7 @@ const channelsService = new ChannelsService();
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
-      maxWidth: 752,
+      padding: 15
     },
     demo: {
       backgroundColor: theme.palette.background.paper,
@@ -83,12 +83,8 @@ function ClientChannelsComponent(props){
         );
     }else{
         return(
-            <div>
-                <Grid item md={3}>
-                <Typography variant="h6" className={classes.title}>
-                    Canales cliente {localStorage.getItem('email')}
-                </Typography>
-                <div className={classes.demo}>
+            <div className={classes.root}>
+                
                 <List>
                 {canales.length > 0 ?canales.map( (canal, index) => (       
                     <ListItem key={canal.can_id}>
@@ -130,8 +126,7 @@ function ClientChannelsComponent(props){
                 </List>
                 </div>
                 :null}
-                </div>
-                </Grid>
+                
             </div>
         );
     }

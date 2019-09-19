@@ -72,6 +72,7 @@ function ChangePasswordComponent(){
                                             label="Ingrese su nueva contraseña"
                                             margin="dense"
                                             fullWidth
+                                            autoComplete="off"
                                         />   
                                         {meta.error && meta.touched && <span>{meta.error}</span>}
                                     </div>
@@ -92,6 +93,7 @@ function ChangePasswordComponent(){
                                             label="Ingrese nuevamente la contraseña"
                                             margin="dense"
                                             fullWidth
+                                            autoComplete="off"
                                         />   
                                         {meta.error && meta.touched && <span>{meta.error}</span>}
                                     </div>
