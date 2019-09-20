@@ -8,14 +8,15 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
+import ScrollAnimation from 'react-animate-on-scroll';
 const useStyles = makeStyles(theme => ({
     section:{
         paddingTop: 20,
         paddingBottom: 20
     },
     card: {
-        margin: theme.spacing(4),
-        maxWidth: 345,
+        margin: theme.spacing(1),
+        //maxWidth: 345,
     },
     media: { 
         width: "90%",
@@ -54,14 +55,17 @@ function AdminsComponent(){
 
     return(
             <Grid id="admins" className={classes.section} style={{marginTop: 30}} item xs={11} sm={10} md={9} lg={7}>
-                    
+                    <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInLeft">
+
                     <Typography variant="h5">Administradores / Soporte</Typography>
                     <Typography variant="body2">Puedes contactarte con nosotros directamente desde steam ante cualquier problema contactandonos a los perfiles.</Typography>
-                    
-                    <Grid container justify="center">
+                    </ScrollAnimation>                    
+                    <Grid style={{marginTop:20}} container justify="center">
                         {( isLoading ? Array.from(new Array(3)) : admins).map( (admin, i) => (
                             <Grid key={i} item xs={6} sm={6} md={4}>
                                 <div className={classes.card}>
+                                <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInUp">
+
                                         <CardMedia style={{justifyContent:"center",justifyItems:"center", justifySelf:"center" ,textAlign:"center"}}>
                                        {admin ? (
                                         <img alt={i} className={classes.media} src={admin.avatarFull}/>
@@ -80,7 +84,7 @@ function AdminsComponent(){
                                         )}
                                         
                                         {admin ? (
-                                        <Typography variant="body2" color="textSecondary" component="p">
+                                        <Typography variant="caption" color="textSecondary" component="p">
                                             {admin.stateMessage}<br/>
                                             {admin.location ? admin.location : 'No registra ciudad'}
                                         </Typography>
@@ -96,6 +100,7 @@ function AdminsComponent(){
                                         </Button>
                                     </CardActions>
                                     ):null}
+                                    </ScrollAnimation>
                                 </div>
                             </Grid>
                         ))}

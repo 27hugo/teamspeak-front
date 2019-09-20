@@ -16,7 +16,7 @@ export default class LoginService{
                     localStorage.setItem('tipo', user.tipo);
                     localStorage.setItem('nombre', user.nombre);
                     localStorage.setItem('alias', user.alias);
-                    /*console.log("Son las         "+Math.floor(new Date().getTime() / 1000));
+		    /*console.log("Son las         "+Math.floor(new Date().getTime() / 1000));
                     console.log("Creado a las    "+user.iat);
                     console.log("Expira a las    "+user.exp);
                     console.log("Tiempo de token "+(user.exp-user.iat));*/

@@ -8,8 +8,8 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center"
   },
   container: {
-    paddingTop: 50,
-    paddingBottom: 50, 
+    paddingTop: 30,
+    paddingBottom: 30, 
     justifyContent: "center",
     textAlign: "center"
   }
@@ -22,7 +22,11 @@ function FooterComponent() {
         
       <Container className={classes.root} fixed>
           <Grid className={classes.container} container>
-            <p>Creado por owc.cl</p>
+            <p>Desarrollado por owc.cl, Valparaíso, Chile<br/>
+              &copy; derechos reservados<br/>
+              2019
+            </p>
+
           </Grid>
       </Container>
     </Grid>

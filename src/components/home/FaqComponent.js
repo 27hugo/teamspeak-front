@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import ScrollAnimation from 'react-animate-on-scroll';
 const useStyles = makeStyles(theme => ({
     section:{
         paddingTop: 20,
@@ -15,7 +15,10 @@ function FaqComponent(){
     return(          
             
             <Grid id="faq" className={classes.section} item xs={11} sm={10} md={9} lg={7}>
+                <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInRight">
                <Typography variant="h5"><b>Preguntas Frecuentes</b></Typography>
+               </ScrollAnimation>
+               <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInUp">
                 <div style={{marginTop: 30}}>
                     <Typography variant="h6">
                         ¿Para qué es esta página?.
@@ -24,6 +27,8 @@ function FaqComponent(){
                         Esta página permite a los usuarios que hagan uso de teamspeak3, crear sus canales de forma totalmente gratuita.
                     </Typography>
                 </div>
+                </ScrollAnimation>
+                <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInUp">
                 <div style={{marginTop: 30}}>
                     <Typography variant="h6">
                         ¿Cómo creo un canal?.
@@ -35,6 +40,8 @@ function FaqComponent(){
                         y una contraseña para este.
                     </Typography>
                 </div>
+                </ScrollAnimation>
+                <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInUp">
                 <div style={{marginTop: 30}}>
                     <Typography variant="h6">
                         Tengo un problema para iniciar sesión o crear un canal ¿Qué hago?.
@@ -45,6 +52,7 @@ function FaqComponent(){
                         persiste, contáctanos en nuestro formulario o bien con un admin en el servidor de teamspeak3.
                     </Typography>
                 </div>
+                </ScrollAnimation>
             </Grid>
       
     );

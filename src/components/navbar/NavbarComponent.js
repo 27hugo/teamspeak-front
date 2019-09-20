@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,10 +11,14 @@ import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import LoginModalComponent from '../login/LoginModalComponent';
 import './NavbarComponent.css';
-
+import logo from '../../assets/images/logo.png';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+  },
+  logo: {
+    width: 180,
+    height: 50
   },
   appbar:{
       backgroundColor: "#00002F"
@@ -23,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    marginLeft: theme.spacing(3),
     flexGrow: 1,
   },
   links:{
@@ -62,14 +65,16 @@ function NavbarComponent(props) {
           </IconButton>
           ): null}
           <Typography variant="h6" className={classes.title}>
-            <Link className={classes.links} style={{color:"white"}} to={'/'}>OWC</Link>
+            <Link className={classes.links} style={{color:"white"}} to={'/'}>
+              <img className={classes.logo} alt="logo" src={logo} />
+            </Link>
           </Typography>
 
 
           
           {auth ? (
             <div>
-              Hola, {localStorage.getItem('alias') !== 'null' ? localStorage.getItem('alias') : localStorage.getItem('nombre')}
+              Hola, {localStorage.getItem('alias') ? localStorage.getItem('alias') : localStorage.getItem('nombre')}
               <IconButton
                 onClick={handleMenu}
                 color="inherit"

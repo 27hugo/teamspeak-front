@@ -9,6 +9,7 @@ import { Select } from 'final-form-material-ui';
 import ClientsService from '../../services/ClientsService';
 import ClientModel from '../../models/ClientModel';
 import regiones from '../../utils/RegionesService.json';
+import LoadingComponent from '../loading/LoadingComponent';
 const clientsService = new ClientsService();
 
 const useStyles = makeStyles(theme => ({
@@ -87,7 +88,7 @@ function UpdateClientComponent(props){
         <div className={classes.root}>
             
 
-            {state.isLoading ? <CircularProgress/>:null}
+            {state.isLoading ? <LoadingComponent/>:null}
             {state.isLoading || state.hasErrors ? <p>{state.error}</p>:
             
             <Form    
