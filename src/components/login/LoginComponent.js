@@ -57,7 +57,7 @@ function LoginComponent(props){
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         setSubmitting(true);
-        const login = new LoginModel(null, form.email, form.password, null, null, null, null);
+        const login = new LoginModel(null, form.email.toLowerCase(), form.password, null, null, null, null);
         const resp = await loginService.login(login);
         if(resp.status === 'ERROR' || resp.status === 'FATAL' ){
           setLoginError(resp.error);
