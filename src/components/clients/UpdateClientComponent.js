@@ -10,7 +10,9 @@ import ClientsService from '../../services/ClientsService';
 import ClientModel from '../../models/ClientModel';
 import regiones from '../../utils/RegionesService.json';
 import LoadingComponent from '../loading/LoadingComponent';
+
 const clientsService = new ClientsService();
+
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -57,15 +59,21 @@ function UpdateClientComponent(props){
     
     const onSubmit = async form => {
         setIsSubmitting(true);
-        const client = new ClientModel(localStorage.getItem('id'), null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
-        const resp = await clientsService.updateClient(client);
-        if( resp.status === 'ERROR' || resp.status === 'FATAL'){
-            setSuccess(resp.error);
+        if(form.name === client.cli_nombre && form.nickname === client.cli_alias && form.region === client.cli_region && form.city === client.cli_ciudad){
+            const resp = await 0;
+            setSuccess("No se han realizado cambios");
+            setIsSubmitting(resp);
+        }else{
+            const client = new ClientModel(localStorage.getItem('id'), null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
+            const resp = await clientsService.updateClient(client);
+            if( resp.status === 'ERROR' || resp.status === 'FATAL'){
+                setSuccess(resp.error);
+            }
+            if( resp.status === 'OK'){
+                setSuccess(resp.data);
+            }
+            setIsSubmitting(false);
         }
-        if( resp.status === 'OK'){
-            setSuccess(resp.data);
-        }
-        setIsSubmitting(false);
     }
     
     const required = value => (value ? undefined : 'Este campo es requerido');
@@ -191,7 +199,7 @@ function UpdateClientComponent(props){
                                     component={Select}
                                 >
                                 {regiones.regiones.map( (region, index) => (
-                                    <MenuItem key={region} value={region.region}>{region.region}</MenuItem>
+                                    <MenuItem key={index} value={region.region}>{region.region}</MenuItem>
                                 ))}                                
                                 </Field>
                             </FormGroup>

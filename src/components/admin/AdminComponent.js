@@ -19,7 +19,6 @@ import DashboardComponent from './DashboardComponent';
 import GridList from '@material-ui/core/GridList';
 import Box from '@material-ui/core/Box';
 
-
 const useStyles = makeStyles(theme => ({
     gridList: {
       minWidth:"100%",
@@ -201,7 +200,7 @@ function AdminComponent(props){
                     <div>
                     <Grid style={{padding:15}}>
                     <Typography variant="h6">
-                Crear canal teamspeak
+                <QueueIcon style={{fontSize: 55, marginRight: 15}} /> Crear canal teamspeak
             </Typography>
         <Typography variant="caption">
             El limite de canales que puedes tener activos es de 3 canales, puedes editarlos, o bien,
@@ -218,7 +217,7 @@ function AdminComponent(props){
                     <div>
                     <Grid style={{padding:15}}>
                     <Typography variant="h6">
-                    Canales creados
+                    <FormatListBulletedIcon style={{fontSize: 55, marginRight: 15}} />Canales creados
                 </Typography>
             <Typography variant="caption">
                 Aquí aparecerán los canales que tengas activos en el servidor. Recuerda que
@@ -235,7 +234,7 @@ function AdminComponent(props){
                     <div>
                     <Grid style={{padding:15}}>
                     <Typography variant="h6">
-                Actualizar datos personales
+                    <PersonIcon style={{fontSize: 55, marginRight: 15}}/>Actualizar datos personales
             </Typography>
         <Typography variant="caption">
             Aquí puedes actualizar información relacionada con tus datos personales
@@ -251,7 +250,7 @@ function AdminComponent(props){
                     <div>
                     <Grid style={{padding:15}}>
                     <Typography variant="h6">
-                Cambiar contraseña de la cuenta
+                <VpnKeyIcon style={{fontSize: 55, marginRight: 15}}/>Cambiar contraseña de la cuenta
             </Typography>
         <Typography variant="caption">
             Ingresa la nueva contraseña que deseas. Una vez cambiada la contraseña, la sesión se cerrará

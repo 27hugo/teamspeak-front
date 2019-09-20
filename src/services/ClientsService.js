@@ -30,4 +30,17 @@ export default class ClientsService{
 
     }
 
+    getLastConnections(cli_id){
+        return axios.get( config.apiurl + '/clients/connection/' + cli_id , config.axios );
+    }
+
+    getLoginsPerMonth(){
+        const date = new Date();
+        return axios.get( config.apiurl + '/clients/connectionpermonth/' + date.getFullYear() + '/' + (date.getUTCMonth() + 1), config.axios);
+    }
+
+    getTotalClients(){
+        return axios.get( config.apiurl + '/clients/total_clients', config.axios );
+    }
+
 }
