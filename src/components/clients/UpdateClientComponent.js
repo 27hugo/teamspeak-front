@@ -9,6 +9,7 @@ import { Select } from 'final-form-material-ui';
 import ClientsService from '../../services/ClientsService';
 import ClientModel from '../../models/ClientModel';
 import regiones from '../../utils/RegionesService.json';
+import LoadingComponent from '../loading/LoadingComponent';
 const clientsService = new ClientsService();
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +37,6 @@ function UpdateClientComponent(props){
     });
 
     useEffect( () => {
-        if( localStorage.getItem('logueado') ){
         clientsService.getClientById(localStorage.getItem('id'))
             .then(resp => {
                 resp = resp.data;
@@ -51,15 +51,10 @@ function UpdateClientComponent(props){
             .catch(err => {
                 setState({isLoading: false, hasErrors:true, error: 'Ocurrió un error al conectar con el servidor'});
             });
-        }
+        
         
     }, []);
     
-    if ( !localStorage.getItem('logueado') ) { 
-        props.history.push('/login');
-        return null;
-    }
-
     const onSubmit = async form => {
         setIsSubmitting(true);
         const client = new ClientModel(localStorage.getItem('id'), null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
@@ -91,8 +86,9 @@ function UpdateClientComponent(props){
 
     return(
         <div className={classes.root}>
+            
 
-            {state.isLoading ? <CircularProgress/>:null}
+            {state.isLoading ? <LoadingComponent/>:null}
             {state.isLoading || state.hasErrors ? <p>{state.error}</p>:
             
             <Form    
@@ -195,7 +191,7 @@ function UpdateClientComponent(props){
                                     component={Select}
                                 >
                                 {regiones.regiones.map( (region, index) => (
-                                    <MenuItem key={index} value={region.region}>{region.region}</MenuItem>
+                                    <MenuItem key={region} value={region.region}>{region.region}</MenuItem>
                                 ))}                                
                                 </Field>
                             </FormGroup>
@@ -220,7 +216,7 @@ function UpdateClientComponent(props){
                                 {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:''}
                                 <Button disabled={submitting || invalid} type="submit" variant="contained" size="large" color="primary">
                                     Actualizar datos
-                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}    
+                                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={18} />  :  <ChevronRightIcon/>}    
                                 </Button> 
                             </FormGroup>
                         </Grid>

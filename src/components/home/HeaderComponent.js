@@ -1,17 +1,17 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import wp1 from '../../assets/images/wp1.jpg';
 const useStyles = makeStyles(theme => ({
     header:{
-        backgroundImage: "url('https://owc.cl/assets/images/wp1.jpg')",
+        backgroundImage: "url("+ wp1 +")",
         backgroundAttachment: "fixed",
-        height: "70vh"
+        height: "100vh"
     },
     headerTitle:{
         margin: "auto",
         color: "#FFAA4B",
-        fontSize: "5rem",
+        fontSize: "8rem",
         textShadow: "2px 2px #ff0000",
     },
 
@@ -29,8 +29,7 @@ function HeaderComponent(){
                 style={{ backgroundColor: 'teal' }}
             >
                 <Grid item>
-                    <h2 className={classes.headerTitle}>BIENVENIDO A OWC</h2>
-                    <p style={{color:"#FFAA4B", fontSize:"1.5rem"}}>Registrate y crea un canal de ts3 gratis</p>
+                    <h2 className={classes.headerTitle}>OWC</h2>
                 </Grid>
             </Grid>
 

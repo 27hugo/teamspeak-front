@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,10 +9,16 @@ import {Link} from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import LoginModalComponent from '../login/LoginModalComponent';
+import './NavbarComponent.css';
+import logo from '../../assets/images/logo.png';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+  },
+  logo: {
+    width: 180,
+    height: 50
   },
   appbar:{
       backgroundColor: "#00002F"
@@ -21,10 +27,10 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    marginLeft: theme.spacing(3),
     flexGrow: 1,
   },
   links:{
+    color: "#000",
       textDecoration: "none"
   }
 }));
@@ -35,7 +41,6 @@ function NavbarComponent(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const admin = false;
   const open = Boolean(anchorEl);
-
 
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);
@@ -60,14 +65,16 @@ function NavbarComponent(props) {
           </IconButton>
           ): null}
           <Typography variant="h6" className={classes.title}>
-            <Link className={classes.links} style={{color:"white"}} to={'/'}>OWC</Link>
+            <Link className={classes.links} style={{color:"white"}} to={'/'}>
+              <img className={classes.logo} alt="logo" src={logo} />
+            </Link>
           </Typography>
 
 
           
           {auth ? (
             <div>
-              Hola, Hugo
+              Hola, {localStorage.getItem('alias') ? localStorage.getItem('alias') : localStorage.getItem('nombre')}
               <IconButton
                 onClick={handleMenu}
                 color="inherit"
@@ -86,21 +93,14 @@ function NavbarComponent(props) {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>
-                    <Link className={classes.links} to={'/account/changepassword'}>Cambiar contraseña</Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <Link className={classes.links} to={'/account/update'}>Actualizar datos</Link>
-                </MenuItem>
-                <MenuItem onClick={logout}>
-                    <Link className={classes.links} onClick={logout} to={'/'}>Cerrar Sesión</Link>
-                </MenuItem>
+                
+                    <Link className={classes.links} to={'/admin'}><MenuItem onClick={handleClose}>Mis canales </MenuItem></Link>
+                    <Link className={classes.links} onClick={logout} to={'/'}><MenuItem onClick={logout}>Cerrar Sesión</MenuItem></Link>
+                
               </Menu>
             </div>
           ) : (
-            <Button variant="contained" color="primary" className={classes.button}>
-              <Link className={classes.links} style={{color: "white"}} to={'/login'}>Login</Link>
-            </Button>
+            <LoginModalComponent/>
           )}
         </Toolbar>
       </AppBar>

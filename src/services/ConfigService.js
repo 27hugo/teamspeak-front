@@ -1,5 +1,6 @@
 const config = {
-    apiurl: 'http://localhost/teamspeak-api/index.php',
+    apiurl: 'http://ts3.owc.cl/buildapi/index.php',
+    //apiurl: 'https://owc.cl/buildapi/index.php',
     axios: {
         headers: {
             "Accept":"application/json",

@@ -1,24 +1,35 @@
 import React from 'react';
 import { Grid, Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root:{
+    justifyContent: "center",
+    textAlign: "center"
+  },
+  container: {
+    paddingTop: 30,
+    paddingBottom: 30, 
+    justifyContent: "center",
+    textAlign: "center"
+  }
+}));
 
 function FooterComponent() {
+  const classes = useStyles();
   return (
-      <Container fixed>
-          <Grid container>
-            <Grid item xs={12} sm={3}>
-                <p>Horarios</p>
-            </Grid>
-            <Grid item xs={12} sm={3}>
-                <p>Terminos</p>
-            </Grid>
-            <Grid item xs={12} sm={3}>
-                <p>Logo</p>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <p>Creado por owc.cl</p>
+    <Grid container style={{backgroundColor: "#000020", color: "white"}}>
+        
+      <Container className={classes.root} fixed>
+          <Grid className={classes.container} container>
+            <p>Desarrollado por owc.cl, Valparaíso, Chile<br/>
+              &copy; derechos reservados<br/>
+              2019
+            </p>
+
           </Grid>
       </Container>
+    </Grid>
   );
 }
 

@@ -20,6 +20,9 @@ const useStyles = makeStyles(theme => ({
         marginTop: 5,
         marginBottom: 5
     },
+    button:{
+      borderRadius: 0
+    }
 }));
 
 function LoginComponent(props){
@@ -54,13 +57,13 @@ function LoginComponent(props){
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         setSubmitting(true);
-        const login = new LoginModel(null, form.email, form.password, null, null, null);
+        const login = new LoginModel(null, form.email, form.password, null, null, null, null);
         const resp = await loginService.login(login);
         if(resp.status === 'ERROR' || resp.status === 'FATAL' ){
           setLoginError(resp.error);
         }else{
           setLoginError(false);
-          document.location.href='/';
+          document.location.href='/admin';
         }
         setSubmitting(false);
       };
@@ -107,12 +110,14 @@ function LoginComponent(props){
                 />
             </FormGroup>
             {loginError?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{loginError}</FormHelperText>:''}
-            <Button disabled={submitting || form.email === '' || form.password === '' || errors.password} type="submit" variant="contained" size="large" color="primary">
+            <FormGroup>
+            <Button className={classes.button} disabled={submitting || form.email === '' || form.password === '' || errors.password} type="submit" variant="contained" size="large" color="primary">
                 Iniciar Sesion
-                {submitting ? <CircularProgress style={{marginLeft:10}} size={14} />  :  <ChevronRightIcon/>}
+                {submitting ? <CircularProgress style={{marginLeft:10}} size={18} />  :  <ChevronRightIcon/>}
                   
             </Button>
-            <a style={{ marginLeft: 10 }} href="google.cl">¿Ha olvidado su contraseña?</a>
+            </FormGroup>
+            <a style={{ marginLeft: 10, fontSize: 14 }} href="google.cl">¿Olvidaste tu contraseña?</a>
         </form>
         </div>
     );

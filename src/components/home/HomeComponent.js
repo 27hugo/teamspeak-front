@@ -10,12 +10,6 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "center",
         flexGrow: 1,
     },
-    imagedivider:{
-        height: "400px",
-        backgroundImage: "url('https://owc.cl/assets/images/wp2.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "0px"
-    }
   }));
 function HomeComponent(){
     const classes = useStyles();
@@ -27,7 +21,7 @@ function HomeComponent(){
             <SectionInfoComponent/>
             <AdminsComponent/>
             <FaqComponent/>
-            
+      
         </Grid>
     );
 }
