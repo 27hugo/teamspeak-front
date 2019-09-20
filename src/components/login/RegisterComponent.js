@@ -33,7 +33,7 @@ function RegisterComponent(){
     
     const onSubmit = async form => {
         setIsSubmitting(true);
-        const login = new LoginModel(null, form.email, form.password, null, null, null, null);
+        const login = new LoginModel(null, form.email.toLowerCase(), form.password, null, null, null, null);
         const client = new ClientModel(null, null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
         const model = {...login, ...client};
         const resp = await loginService.register(model);
