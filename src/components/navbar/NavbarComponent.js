@@ -8,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {Link} from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Avatar from '@material-ui/core/Avatar';
+import PersonIcon from '@material-ui/icons/Person';
 import LoginModalComponent from '../login/LoginModalComponent';
 import './NavbarComponent.css';
 import logo from '../../assets/images/logo.png';
@@ -82,7 +82,7 @@ function NavbarComponent(props) {
                 color="inherit"
               >
     
-              <Avatar alt="account-avatar" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/61/6168121087e36a7563a45ecfa3adf87823579968_full.jpg"/>
+              <PersonIcon/>
               
               </IconButton>
               <Menu

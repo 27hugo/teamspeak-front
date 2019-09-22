@@ -59,7 +59,7 @@ function UpdateClientComponent(props){
     
     const onSubmit = async form => {
         setIsSubmitting(true);
-        if(form.name === client.cli_nombre && form.nickname === client.cli_alias && form.region === client.cli_region && form.city === client.cli_ciudad){
+        if(form.name === client.cli_nombre && form.nickname === client.cli_alias && form.region === client.cli_region && form.city === client.cli_ciudad && client.cli_nacimiento === form.birthdate){
             const resp = await 0;
             setSuccess("No se han realizado cambios");
             setIsSubmitting(resp);
@@ -77,7 +77,7 @@ function UpdateClientComponent(props){
     }
     
     const required = value => (value ? undefined : 'Este campo es requerido');
-    const email = value => ( value.match(/[a-zA-Z]@/) ? undefined: 'El correo ingresado no es válido' );
+    const email = value => ( value.match(/[a-zA-Z0-9]@/) ? undefined: 'El correo ingresado no es válido' );
     const alphanumeric = value => ( value.match(/^[a-z\d\-_\s]+$/i) ? undefined: 'Debe ingresar sólo números y letras');
     const minLength = min => value => value.length < min ? `Debe ingresar al menos ${min} caracteres`: undefined;
     const maxLength = max => value => value.length > max ? `El límite de caracteres es de ${max}`: undefined;
@@ -181,7 +181,7 @@ function UpdateClientComponent(props){
                                             defaultValue={client.cli_nacimiento}
                                             margin="dense"
                                             fullWidth
-                                            disabled
+                                        
                                         />   
                                         {meta.error && meta.touched && <span>{meta.error}</span>}
                                     </div>
@@ -195,7 +195,7 @@ function UpdateClientComponent(props){
                                     validate={composeValidators(required, selectRegion)}
                                     name="region"
                                     defaultValue={client.cli_region}
-                                    label="seleccione region"
+                                    label="Seleccione región"
                                     component={Select}
                                 >
                                 {regiones.regiones.map( (region, index) => (
@@ -210,7 +210,7 @@ function UpdateClientComponent(props){
                                     validate={required}
                                     name="city"
                                     defaultValue={client.cli_ciudad}
-                                    label="seleccione ciudad"
+                                    label="Seleccione comuna"
                                     component={Select}
                                 >
                                 {regionSelected?regionSelected.map( (comuna, index) => (

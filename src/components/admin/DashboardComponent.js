@@ -62,7 +62,7 @@ export default function RecipeReviewCard() {
         const fechas = [];
         resp.data.forEach( f=> {
           const fecha = new Date(f.his_log_ultima_conexion);
-          fechas.push(fecha.toUTCString());
+          fechas.push(fecha.toLocaleString('es-CL'));
         });
         setLastConnections(fechas);
       }

@@ -49,7 +49,7 @@ function RegisterComponent(){
     }
     
     const required = value => (value ? undefined : 'Este campo es requerido');
-    const email = value => ( value.match(/[a-zA-Z]@/) ? undefined: 'El correo ingresado no es válido' );
+    const email = value => ( value.match(/[a-zA-Z0-9]@/) ? undefined: 'El correo ingresado no es válido' );
     const alphanumeric = value => ( value.match(/^[a-z\d\-_\s]+$/i) ? undefined: 'Debe ingresar sólo números y letras');
     const minLength = min => value => value.length < min ? `Debe ingresar al menos ${min} caracteres`: undefined;
     const maxLength = max => value => value.length > max ? `El límite de caracteres es de ${max}`: undefined;
@@ -161,7 +161,7 @@ function RegisterComponent(){
                                 <Field
                                     validate={composeValidators(required, selectRegion)}
                                     name="region"
-                                    label="seleccione region"
+                                    label="Seleccione región"
                                     component={Select}
                                 >
                                 {regiones.regiones.map( (region, index) => (
@@ -175,7 +175,7 @@ function RegisterComponent(){
                                 <Field
                                     validate={required}
                                     name="city"
-                                    label="seleccione ciudad"
+                                    label="Seleccione comuna"
                                     component={Select}
                                 >
                                 {regionSelected?regionSelected.map( (comuna, index) => (
