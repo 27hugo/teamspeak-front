@@ -7,9 +7,9 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import LoginService from '../../services/LoginService';
+import AuthenticationService from '../../services/AuthenticationService';
 import CircularProgress from '@material-ui/core/CircularProgress';
-const loginService = new LoginService();
+const authenticationService = new AuthenticationService();
 
 const useStyles = makeStyles(theme => ({
   root:{
@@ -58,7 +58,7 @@ function LoginComponent(props){
         event.preventDefault(); 
         setSubmitting(true);
         const login = new LoginModel(null, form.email.toLowerCase(), form.password, null, null, null, null);
-        const resp = await loginService.login(login);
+        const resp = await authenticationService.login(login);
         if(resp.status === 'ERROR' || resp.status === 'FATAL' ){
           setLoginError(resp.error);
         }else{

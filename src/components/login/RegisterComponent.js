@@ -7,10 +7,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
 import { Select } from 'final-form-material-ui';
-import LoginService from '../../services/LoginService';
+import AuthenticationService from '../../services/AuthenticationService';
 import ClientModel from '../../models/ClientModel';
 import regiones from '../../utils/RegionesService.json';
-const loginService = new LoginService();
+const authenticationService = new AuthenticationService();
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -36,7 +36,7 @@ function RegisterComponent(){
         const login = new LoginModel(null, form.email.toLowerCase(), form.password, null, null, null, null);
         const client = new ClientModel(null, null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
         const model = {...login, ...client};
-        const resp = await loginService.register(model);
+        const resp = await authenticationService.register(model);
         if(resp.status === 'ERROR' || resp.status === 'FATAL' ){
           setSuccess(resp.error);
         }else if(resp.status === 'OK'){

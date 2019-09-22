@@ -7,6 +7,9 @@ import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
 import ChannelsService from '../../services/ChannelsService';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import AuthenticationService from '../../services/AuthenticationService';
+const authenticationService = new AuthenticationService();
+
 const useStyles = makeStyles(theme => ({
     root:{
         padding:15
@@ -25,7 +28,7 @@ function ChannelCreateComponent(props){
     const [isSubmitting, setIsSubmitting] = useState(false);
     const onSubmit = async (values) => {
         setIsSubmitting(true);
-        const channel = new ChannelModel(null, localStorage.getItem('id'), null, values.name, values.password, null, null);    
+        const channel = new ChannelModel(null, authenticationService.getUserId() , null, values.name, values.password, null, null);    
         let resp = await channelsService.createChannel(channel);
         if(resp.status === 'OK'){
             setSuccess('Canal creado exitosamente');

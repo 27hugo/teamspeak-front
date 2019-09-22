@@ -12,6 +12,9 @@ import Avatar from '@material-ui/core/Avatar';
 import LoginModalComponent from '../login/LoginModalComponent';
 import './NavbarComponent.css';
 import logo from '../../assets/images/logo.png';
+import AuthenticationService from '../../services/AuthenticationService';
+const authenticationService = new AuthenticationService();
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -37,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 function NavbarComponent(props) {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(localStorage.getItem('logueado'));
+  const [auth, setAuth] = React.useState(localStorage.getItem('token'));
   const [anchorEl, setAnchorEl] = React.useState(null);
   const admin = false;
   const open = Boolean(anchorEl);
@@ -52,8 +55,7 @@ function NavbarComponent(props) {
   const logout = () => {
     setAnchorEl(null);
     setAuth(false);
-    localStorage.clear();
-    document.location.href='/';
+    authenticationService.logout();
   };
   return (
     <div className={classes.root}>
@@ -74,7 +76,7 @@ function NavbarComponent(props) {
           
           {auth ? (
             <div>
-              Hola, {localStorage.getItem('alias') ? localStorage.getItem('alias') : localStorage.getItem('nombre')}
+              Hola, {authenticationService.getUser().alias ? authenticationService.getUser().alias : authenticationService.getUser().nombre}
               <IconButton
                 onClick={handleMenu}
                 color="inherit"

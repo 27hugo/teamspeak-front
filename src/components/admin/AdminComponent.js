@@ -18,6 +18,8 @@ import ChangePasswordComponent from '../clients/ChangePasswordComponent';
 import DashboardComponent from './DashboardComponent';
 import GridList from '@material-ui/core/GridList';
 import Box from '@material-ui/core/Box';
+import AuthenticationService from '../../services/AuthenticationService';
+const authenticationService = new AuthenticationService();
 
 const useStyles = makeStyles(theme => ({
     gridList: {
@@ -41,15 +43,14 @@ function AdminComponent(props){
     const classes = useStyles();
 
     useEffect( () => {
-        if ( !localStorage.getItem('logueado') ) { 
+        if ( !authenticationService.isLogged() ) { 
             document.location.href='/';
             return null;
         }
     
     });
     const logout = () => {
-        localStorage.clear();
-        document.location.href='/';
+        authenticationService.logout();
       };
     function handleListItemClick(event, index) {
       setSelectedIndex(index);

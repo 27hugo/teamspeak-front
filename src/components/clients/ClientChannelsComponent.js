@@ -12,7 +12,9 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LoadingComponent from '../loading/LoadingComponent';
+import AuthenticationService from '../../services/AuthenticationService';
 
+const authenticationService = new AuthenticationService();
 const channelsService = new ChannelsService();
 const useStyles = makeStyles(theme => ({
     root: {
@@ -42,7 +44,7 @@ function ClientChannelsComponent(props){
     });
   
     useEffect( () => {     
-                channelsService.getChannelsByCliId( localStorage.getItem('id') )
+                channelsService.getChannelsByCliId( authenticationService.getUserId() )
                 .then( canales => {
                     setCanales(canales.data.data);
                     setLoading(false);

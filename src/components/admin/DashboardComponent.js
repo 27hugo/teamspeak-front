@@ -9,7 +9,8 @@ import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
 import ClientsService from '../../services/ClientsService';
 import { Grid } from '@material-ui/core';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-
+import AuthenticationService from '../../services/AuthenticationService';
+const authenticationService = new AuthenticationService();
 const clientsService = new ClientsService();
 
 const useStyles = makeStyles(theme => ({
@@ -52,7 +53,7 @@ export default function RecipeReviewCard() {
   const [loginsPerMonth, setLoginsPerMonth] = useState(null);
 
   useEffect( () => {
-    clientsService.getLastConnections(localStorage.getItem('id')).then( resp => {
+    clientsService.getLastConnections(authenticationService.getUserId()).then( resp => {
       resp = resp.data;
       if( resp.status === 'ERROR' || resp.status === 'FATAL'){
         console.log(resp.error);
@@ -90,7 +91,7 @@ export default function RecipeReviewCard() {
       <DashboardIcon style={{fontSize: 55, marginRight: 15}}/>Dashboard
       </Typography>
       <Typography variant="subtitle1">
-        Bienvenido {localStorage.getItem('alias') !== 'null' ? localStorage.getItem('alias') : localStorage.getItem('nombre')},
+        Bienvenido {authenticationService.getUser().alias ? authenticationService.getUser().alias : authenticationService.getUser().nombre},
         aquí podrás gestionar la información de tu cuenta y<br/>administrar tus canales en el servidor de teamspeak.
       </Typography>
     </Grid>

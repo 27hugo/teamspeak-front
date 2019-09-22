@@ -6,8 +6,8 @@ import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LoginModel from '../../models/LoginModel';
-import LoginService from '../../services/LoginService';
-const loginService = new LoginService();
+import AuthenticationService from '../../services/AuthenticationService';
+const authenticationService = new AuthenticationService();
 const useStyles = makeStyles(theme => ({
     formControl: {
         padding: 0,
@@ -29,13 +29,14 @@ function ChangePasswordComponent(){
     const [isSubmitting, setIsSubmitting] = useState(false);
     const onSubmit = async form => {
         setIsSubmitting(true);
-        const login = new LoginModel(localStorage.getItem('id'), form.email, form.password, null, null, null);
-        const resp = await loginService.changePassword(login);
+        const login = new LoginModel(authenticationService.getUserId(), form.email, form.password, null, null, null);
+        const resp = await authenticationService.changePassword(login);
         if(resp.status === 'ERROR' || resp.status === 'FATAL'){
             setSuccess(resp.error);
         }
         if(resp.status === 'OK'){
-            setSuccess(resp.data);
+            //setSuccess(resp.data);
+            authenticationService.logout();
         }
         setIsSubmitting(false);
     }

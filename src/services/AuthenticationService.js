@@ -1,25 +1,18 @@
 import axios from 'axios';
 import { config } from './ConfigService';
 import jwt from 'jsonwebtoken';
-export default class LoginService{
+export default class AuthenticationService{
+
+    constructor(){
+        this.token = localStorage.getItem('token');
+    }
 
     login(login){
         return ( new Promise( resolve => {
             axios.post(config.apiurl + '/login', login, config.axios)
             .then( resp => {
                 if(resp.data.status === 'OK'){
-                    var user = jwt.decode(resp.data.data);
-                    localStorage.setItem('logueado', true);
                     localStorage.setItem('token', resp.data.data);
-                    localStorage.setItem('email', user.email );
-                    localStorage.setItem('id', user.id);
-                    localStorage.setItem('tipo', user.tipo);
-                    localStorage.setItem('nombre', user.nombre);
-                    localStorage.setItem('alias', user.alias);
-		    /*console.log("Son las         "+Math.floor(new Date().getTime() / 1000));
-                    console.log("Creado a las    "+user.iat);
-                    console.log("Expira a las    "+user.exp);
-                    console.log("Tiempo de token "+(user.exp-user.iat));*/
                 }
                 resolve(resp.data);
             })
@@ -53,4 +46,30 @@ export default class LoginService{
         }));
     }
 
+    logout(){
+        localStorage.clear();
+        document.location.href='/';
+    }
+
+    getUser(){
+        return jwt.decode(this.token);
+    }
+
+    getUserId(){
+        return jwt.decode(this.token).id;
+    }
+
+    getToken(){
+        return this.token;
+    }
+
+    isLogged(){
+        return this.token ? true : false;
+    }
+
+    validateTokenTime(){
+        const user = jwt.decode(this.token);
+        const time = Math.floor(new Date().getTime() / 1000);
+        return time >= user.exp ? false : true;
+    }
 }

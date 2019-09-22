@@ -10,10 +10,10 @@ import ClientsService from '../../services/ClientsService';
 import ClientModel from '../../models/ClientModel';
 import regiones from '../../utils/RegionesService.json';
 import LoadingComponent from '../loading/LoadingComponent';
+import AuthenticationService from '../../services/AuthenticationService';
 
 const clientsService = new ClientsService();
-
-
+const authenticationService = new AuthenticationService();
 const useStyles = makeStyles(theme => ({
     formControl: {
         padding: 0,
@@ -39,7 +39,7 @@ function UpdateClientComponent(props){
     });
 
     useEffect( () => {
-        clientsService.getClientById(localStorage.getItem('id'))
+        clientsService.getClientById(authenticationService.getUserId())
             .then(resp => {
                 resp = resp.data;
                 if(resp.status === 'ERROR' || resp.status === 'FATAL'){
@@ -64,7 +64,7 @@ function UpdateClientComponent(props){
             setSuccess("No se han realizado cambios");
             setIsSubmitting(resp);
         }else{
-            const client = new ClientModel(localStorage.getItem('id'), null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
+            const client = new ClientModel(authenticationService.getUserId(), null, form.name, form.nickname? form.nickname: null , form.region, form.city, form.birthdate, null);
             const resp = await clientsService.updateClient(client);
             if( resp.status === 'ERROR' || resp.status === 'FATAL'){
                 setSuccess(resp.error);
@@ -113,7 +113,7 @@ function UpdateClientComponent(props){
                                             validate={composeValidators(required, email, minLength(10), maxLength(40))}
                                             name="email"
                                             type="text"
-                                            defaultValue={localStorage.getItem('email')}
+                                            defaultValue={authenticationService.getUser().email}
                                             component={TextField}
                                             label="Correo electronico"
                                             margin="dense"
