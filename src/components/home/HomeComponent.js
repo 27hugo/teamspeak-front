@@ -5,6 +5,7 @@ import SectionInfoComponent from './SectionInfoComponent';
 import HeaderComponent from './HeaderComponent';
 import AdminsComponent from './AdminsComponent';
 import FaqComponent from './FaqComponent';
+import MusicBotsComponent from './MusicBotsComponent';
 const useStyles = makeStyles(theme => ({
     container:{
         justifyContent: "center",
@@ -20,6 +21,7 @@ function HomeComponent(){
             <HeaderComponent/>
             <SectionInfoComponent/>
             <AdminsComponent/>
+            <MusicBotsComponent/>
             <FaqComponent/>
       
         </Grid>

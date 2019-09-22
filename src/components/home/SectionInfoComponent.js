@@ -25,9 +25,9 @@ function SectionInfoComponent(){
                     </ScrollAnimation>
                     <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInUp">
                     <div style={{marginTop: 10}}>                
-                        <Typography variant="body2">En nuestro servidor de <b>teamspeak 3</b> puedes crear tus canales sin ningún costo, sólo necesitas <b>registrarte</b> en nuestra página 
+                        <p class="lead">En nuestro servidor de <b>teamspeak 3</b> puedes crear tus canales sin ningún costo, sólo necesitas <b>registrarte</b> en nuestra página 
                         en el siguiente <i>enlace</i>. Cada usua    rio puede crear hasta 3 canales, si necesitas algún canal extra puedes solicitarlo
-                        con algun admin o soporte que se encuente conectado en el servidor.</Typography>
+                        con algun admin o soporte que se encuente conectado en el servidor.</p>
                     </div>
                     </ScrollAnimation>
                 </div>
@@ -36,14 +36,14 @@ function SectionInfoComponent(){
                 <div style={{marginTop: 30}}>
                     <Typography variant="h5">Reglas para usuarios</Typography>
                     <div style={{marginTop: 10}}>
-                        <Typography variant="body2">
+                        <p>
                             <i>Se prohibe spamear chat.</i><br/>
                             Cualquier spameo publicitando otros servidores en el chat privado o bien en el chat general, será motivo de ban.
-                        </Typography>
-                        <Typography style={{marginTop: 15}} variant="body2">
+                        </p>
+                        <p style={{marginTop: 15}}>
                             <i>Uso indebido de privilegios.</i><br/>
                             Para los usuarios con permisos dentro del servidor, ante cualquier reporte se revisará el caso de un uso indebido y se procederá a banear al usuario.
-                        </Typography>
+                        </p>
                     </div>
                 </div>
                 </ScrollAnimation>
