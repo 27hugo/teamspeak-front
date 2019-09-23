@@ -117,7 +117,7 @@ function LoginComponent(props){
                   
             </Button>
             </FormGroup>
-            <a style={{ marginLeft: 10, fontSize: 14 }} href="google.cl">¿Olvidaste tu contraseña?</a>
+            
         </form>
         </div>
     );
