@@ -25,7 +25,7 @@ function SectionInfoComponent(){
                     </ScrollAnimation>
                     <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInUp">
                     <div style={{marginTop: 10}}>                
-                        <p class="lead">En nuestro servidor de <b>teamspeak 3</b> puedes crear tus canales sin ningún costo, sólo necesitas <b>registrarte</b> en nuestra página 
+                        <p className="lead">En nuestro servidor de <b>teamspeak 3</b> puedes crear tus canales sin ningún costo, sólo necesitas <b>registrarte</b> en nuestra página 
                         en el siguiente <i>enlace</i>. Cada usua    rio puede crear hasta 3 canales, si necesitas algún canal extra puedes solicitarlo
                         con algun admin o soporte que se encuente conectado en el servidor.</p>
                     </div>

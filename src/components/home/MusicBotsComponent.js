@@ -3,23 +3,23 @@ import Typography from '@material-ui/core/Typography';
 import ScrollAnimation from 'react-animate-on-scroll';
 export default function MusicBotsComponent(){
     return(
-        <div class="container">
+        <div className="container">
             <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeIn">
 
                     <Typography variant="h5">
     
                     MusicBots para nuestros usuarios.
                     </Typography>
-                <p class="lead">* Cualquier usuario puede usar los bots desde el chat de ts3.</p>
+                <p className="lead">* Cualquier usuario puede usar los bots desde el chat de ts3.</p>
                 <p>Para usar los bots de música, ya dentro del servidor sólo debes enviarle un mensaje por
                 chat privado al bot haciendo doble click en él y luego escribiendo el comando deseado seguido
                 de enter.</p>
                 </ScrollAnimation>
-                <div class="row">
+                <div className="row">
                 <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInLeft">
-                <div class="col">
+                <div className="col">
                 <Typography variant="h6">Modos de uso.</Typography>
-                    <p class="lead">
+                    <p className="lead">
                         Puedes usar los bots para reproducir música desde <b>youtube</b> o desde una emisora de <b>radio online</b>, o bien subir música desde el computador (requiere cuenta externa, contactar admin).
                     </p>
                     <p>
@@ -31,24 +31,27 @@ export default function MusicBotsComponent(){
                 </ScrollAnimation>
                 </div>
                 
-                <div class="py-4 row">
-                <div class="col">
+                <div className="py-4 row">
+                <div className="col">
                 <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInRight">
                     <Typography variant="h6">Comandos disponibles</Typography>
-                    <div class="py-2">
-                    <h3 class="lead"><b>Youtube Music</b></h3>
+                    <div className="py-2">
+                    <h3 className="lead"><b>Youtube Music</b></h3>
                     <p>
                         Sólo ingresa el comando con la opción que desees con el formato <b>!comando opcion</b>.<br/>
-                        <normal class="text-muted">!yt https://www.youtube.com/watch?v=hHUbLv4ThOo</normal>
+                        !yt https://www.youtube.com/watch?v=hHUbLv4ThOo
                     </p>
                     </div>
                     </ScrollAnimation>
-                    <div class="">
+                    <div className="">
                     <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInUp">
-                    <table class="py-2 table-striped table-hover">
+                    <table className="py-2 table-striped table-hover">
                         <thead>
-                        <td class="musicbot-table-col">Comando</td>
-                        <td>Descripción</td>
+                            <tr>
+                             <th className="musicbot-table-col">Comando</th>
+                        
+                                <th>Descripción</th>
+                            </tr>
                         </thead>
                         <tbody>
                         <tr>
@@ -117,20 +120,23 @@ export default function MusicBotsComponent(){
                 </div>
                 </div>
                 </div>
-                <div class="py-4 row">
+                <div className="py-4 row">
                 <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeIn">
-                <div class="col">
-                    <h3 class="lead"><b>Radio Streaming</b></h3>
+                <div className="col">
+                    <h3 className="lead"><b>Radio Streaming</b></h3>
                     <p>
                         Puedes reproducir una radio en streaming enviándole un mensaje de chat al bot, con el comando <b>!stream urlradio</b>. Algunos ejemplos y radios Chilenas son las que se presentan a continuación.<br/>
-                        <normal class="text-muted">Ejemplo: !stream https://redirector.dps.live/disney/mp364k/icecast.audio</normal>
+                        Ejemplo: !stream https://redirector.dps.live/disney/mp364k/icecast.audio
                     </p>
 
-                    <table class="table-striped table-hover">
+                    <table className="table-striped table-hover">
                         <thead>
-                        <th class="musicbot-table-col">Radio</th>
+                        <tr>
+                        <th className="musicbot-table-col">Radio</th>
                         <th>URL Streaming</th>
+                        </tr>
                         </thead>
+                        <tbody>
                         <tr>
                         <td>40 Principales 95.2 FM</td>
                         <td>http://18493.live.streamtheworld.com/LOS40_CHILE_SC</td>
@@ -163,12 +169,13 @@ export default function MusicBotsComponent(){
                         <td>Radio Paulina 89.3 FM</td>
                         <td>http://185.105.4.100:8141</td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
                 </ScrollAnimation>
                 </div>
-                <div data-aos="fade-zoom" data-aos-duration="1000" class="row">
-                <div class="col">
+                <div data-aos="fade-zoom" data-aos-duration="1000" className="row">
+                <div className="col">
                     <p><b>No olvides ingresar el comando completo indicando la acción a realizar con el "!acción opción" </b></p>
                     <p>Si se presenta algún problema, o quieres agregar alguna otra radio no dudes en hablarnos.</p>
                 </div>

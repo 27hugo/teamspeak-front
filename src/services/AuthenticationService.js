@@ -64,12 +64,16 @@ export default class AuthenticationService{
     }
 
     isLogged(){
-        return this.token ? true : false;
+        return (this.token && this.validateTokenTime());
     }
 
     validateTokenTime(){
         const user = jwt.decode(this.token);
         const time = Math.floor(new Date().getTime() / 1000);
-        return time >= user.exp ? false : true;
+        if( time >= user.exp ){
+            localStorage.clear();
+            return false;
+        }
+        return true;
     }
 }

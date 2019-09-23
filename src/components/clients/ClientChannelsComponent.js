@@ -43,13 +43,17 @@ function ClientChannelsComponent(props){
         error: ''
     });
   
-    useEffect( () => {     
+    useEffect( () => {   
+        console.log(authenticationService.isLogged());
+        if(authenticationService.isLogged()){  
                 channelsService.getChannelsByCliId( authenticationService.getUserId() )
                 .then( canales => {
                     setCanales(canales.data.data);
                     setLoading(false);
                 });
-            
+        }else{
+            setLoading(false);
+        }
     }, []);
     
     const deleteChannel = async (can_id, index) => {
