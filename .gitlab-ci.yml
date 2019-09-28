@@ -6,4 +6,4 @@ config:
     script:
         - echo 'Configurando url conexion API...'
         - cd /var/www/owc.cl/teamspeak-front/src/services
-        - sed -i 's/path-to-index.php/'$API_URL'/g' ConfigService.js
+        - sed -i 's+path-to-index.php+'$API_URL'+g' ConfigService.js
