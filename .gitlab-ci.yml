@@ -27,6 +27,7 @@ deploy:
     stage: build
     script:
         - echo 'Creando build...'
+        - cd /var/www/owc.cl/teamspeak-front
         - npm run build
         - echo 'Desplegando aplicacion...'
         - cd /var/www/owc.cl/teamspeak-front/build
