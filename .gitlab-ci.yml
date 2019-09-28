@@ -1,28 +1,9 @@
 stages:
-    - init
     - config
-    - build
-
-init:
-    stage: init
-    script:
-        - echo 'Vaciando directorio...'
-        - cd /var/www/owc.cl
-        - rm -rf *
-        - echo 'Obteniendo ultima version del front...'
-        - git clone http://$GIT_USER:$GIT_PASS@gitlab.owc.cl/teamspeak/teamspeak-front.git
-        - cd teamspeak-front
-        - echo 'Instalando dependencias npm...'
-        - npm install
 
 config:
     stage: config
     script:
         - echo 'Configurando url conexion API...'
         - cd /var/www/owc.cl/teamspeak-front/src/services
-        - sed -i 's/path-to-index.php/$API_URL/g' ConfigService.js
-
-deploy:
-    stage: build
-    script:
-        - echo 'Creando build...'
+        - sed -i 's/path-to-index.php/'$API_URL'/g' ConfigService.js
