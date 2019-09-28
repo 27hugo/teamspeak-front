@@ -1,5 +1,5 @@
 const config = {
-    apiurl: 'http://path-to-teamspeak-api/index.php',
+    apiurl: 'path-to-index.php',
     axios: {
         headers: {
             "Accept":"application/json",
