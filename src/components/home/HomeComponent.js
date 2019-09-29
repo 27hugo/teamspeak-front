@@ -7,7 +7,21 @@ import AdminsComponent from './AdminsComponent';
 import FaqComponent from './FaqComponent';
 import MusicBotsComponent from './MusicBotsComponent';
 const useStyles = makeStyles(theme => ({
-    container:{
+    info:{
+        justifyContent: "center",
+        flexGrow: 1,
+    },
+    admins:{
+        backgroundImage: "",
+        backgroundSize: "cover",
+        justifyContent: "center",
+        flexGrow: 1,
+    },
+    musicbots:{
+        justifyContent: "center",
+        flexGrow: 1,
+    },
+    faq:{
         justifyContent: "center",
         flexGrow: 1,
     },
@@ -15,16 +29,21 @@ const useStyles = makeStyles(theme => ({
 function HomeComponent(){
     const classes = useStyles();
     return(
-        
-        <Grid className={classes.container} container>
-            
+        <div>
             <HeaderComponent/>
-            <SectionInfoComponent/>
-            <AdminsComponent/>
-            <MusicBotsComponent/>
-            <FaqComponent/>
-      
+            <Grid className={classes.info} container>       
+                <SectionInfoComponent/>
+            </Grid>
+            <Grid className={classes.admins} container>
+                <AdminsComponent/>
+            </Grid>
+            <Grid className={classes.musicbots} container>
+                <MusicBotsComponent/>
+            </Grid>
+            <Grid className={classes.faq} container>
+                <FaqComponent/>
         </Grid>
+        </div>
     );
 }
 

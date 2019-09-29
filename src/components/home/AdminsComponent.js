@@ -12,7 +12,7 @@ import ScrollAnimation from 'react-animate-on-scroll';
 const useStyles = makeStyles(theme => ({
     section:{
         paddingTop: 20,
-        paddingBottom: 20
+        paddingBottom: 20,
     },
     card: {
         margin: theme.spacing(1),
@@ -71,7 +71,10 @@ function AdminsComponent(){
                                         <img alt={i} className={classes.media} src={admin.avatarFull}/>
                                         
                                         ) : (
-                                            <Skeleton width="100%" height={100} />
+                                            <div>
+                                            <Skeleton width="100%" height={200} />
+                                            <Skeleton width="100%" component="h2"/>
+                                            </div>
                                         )}
                                         </CardMedia>
                                         <CardContent className={classes.cardContent} >
@@ -79,18 +82,14 @@ function AdminsComponent(){
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {admin.steamID}
                                         </Typography>
-                                        ) : (
-                                            <Skeleton width="100%" component="h2"/>
-                                        )}
+                                        ) : null}
                                         
                                         {admin ? (
                                         <Typography variant="caption" color="textSecondary" component="p">
                                             {admin.stateMessage}<br/>
                                             {admin.location ? admin.location : 'No registra ciudad'}
                                         </Typography>
-                                        ) : (
-                                            <Skeleton width="60%"/>
-                                        )}
+                                        ) : null}
                                         </CardContent>
                                     
                                     {!isLoading ? (

@@ -1,37 +1,32 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import wp1 from '../../assets/images/wp1.jpg';
-const useStyles = makeStyles(theme => ({
-    header:{
-        backgroundImage: "url("+ wp1 +")",
-        backgroundAttachment: "fixed",
-        height: "100vh"
-    },
-    headerTitle:{
-        margin: "auto",
-        color: "#FFAA4B",
-        fontSize: "8rem",
-        textShadow: "2px 2px #ff0000",
-    },
-
-  }));
+import { Parallax } from 'react-parallax';
+import './style.css';
+const styles = {
+    fontFamily: "sans-serif",
+    textAlign: "center"
+  };
+const insideStyles = {
+    padding: 20,
+    color: "#FFAA4B",
+    fontSize: "8rem",
+    textShadow: "2px 2px #ff0000",
+    fontWeight: 700,
+    position: "absolute",
+    top: "45%",
+    left: "50%",
+    transform: "translate(-50%,-50%)"
+  };
 function HeaderComponent(){
-    const classes = useStyles();
     return(    
-            <Grid
-                className={classes.header}
-                container
-                spacing={0}
-                align="center"
-                justify="center"
-                direction="column"
-                style={{ backgroundColor: 'teal' }}
-            >
-                <Grid item>
-                    <h2 className={classes.headerTitle}>OWC</h2>
-                </Grid>
-            </Grid>
+        <div style={styles}>
+    <Parallax bgImage={wp1} blur={{ min: -1, max: 3 }} strength={200}>
+      <div style={{ height: "100vh" }}>
+        <div style={insideStyles}>OWC</div>
+      </div>
+    </Parallax>
+    
+  </div>
 
     );
 }
