@@ -15,16 +15,18 @@ const useStyles = makeStyles(theme => ({
 function HomeComponent(){
     const classes = useStyles();
     return(
-        
+        <div>
+        <HeaderComponent/>
+            
         <Grid className={classes.container} container>
             
-            <HeaderComponent/>
             <SectionInfoComponent/>
             <AdminsComponent/>
             <MusicBotsComponent/>
             <FaqComponent/>
       
         </Grid>
+        </div>
     );
 }
 
