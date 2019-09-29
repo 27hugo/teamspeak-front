@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LoadingComponent from '../loading/LoadingComponent';
 import AuthenticationService from '../../services/AuthenticationService';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const authenticationService = new AuthenticationService();
 const channelsService = new ChannelsService();
@@ -30,7 +31,13 @@ const useStyles = makeStyles(theme => ({
     progress: {
         margin: theme.spacing(2),
       },
+      typography: {
+        padding: theme.spacing(2),
+      }
   }));
+
+
+  
 
 function ClientChannelsComponent(props){
     
@@ -69,6 +76,8 @@ function ClientChannelsComponent(props){
         setSubmitting(false);
     }
 
+    
+
     return(
         <div className={classes.root}>
             {loading ? <LoadingComponent/> : (
@@ -82,12 +91,14 @@ function ClientChannelsComponent(props){
                     </ListItemAvatar>
                     <ListItemText
                         primary={canal.can_nombre}
-                        secondary={canal.can_creacion}
+                        secondary={'Contraseña: '+canal.can_contrasena}
                     />
                     <ListItemSecondaryAction>
-                    <IconButton disabled={submitting.state && submitting.index === index ? true : false} onClick={() => {deleteChannel(canal.can_id, index); setSubmitting({state: true, index: index})}} edge="end">
+                         <Tooltip title="Eliminar">
+                         <IconButton disabled={submitting.state && submitting.index === index ? true : false} onClick={() => {deleteChannel(canal.can_id, index); setSubmitting({state: true, index: index})}} edge="end">
                         { submitting.state && submitting.index === index ? <CircularProgress /> : <DeleteIcon />}
                     </IconButton>
+                    </Tooltip>               
                     </ListItemSecondaryAction>
                 </ListItem>    
             )):

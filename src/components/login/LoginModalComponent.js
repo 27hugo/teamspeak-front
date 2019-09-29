@@ -7,13 +7,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Modal} from 'react-bootstrap';
 const useStyles = makeStyles(theme => ({
     modal:{
-        paddingTop: "20vh",
         backgroundColor: "#120E29",
     },
     header:{
         border: 0,
         justifyContent:"center",
-        textAlign: "center"
+        textAlign: "center",
+        backgroundColor: "#fff"
     },
     button:{
         color: "#e00",
@@ -29,11 +29,13 @@ const useStyles = makeStyles(theme => ({
     body: {
         justifyContent:"center",
         textAlign: "center",
-        border: 0
+        border: 0,
+        backgroundColor: "#fff"
     },
     footer: {
         border: 0,
-        borderRadius: 0
+        borderRadius: 0,
+        backgroundColor: "#fff"
     }
 }));
 
@@ -47,17 +49,6 @@ function LoginModalComponent(){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    /*return(
-        <div className={classes.root}>
-            <Button onClick={() => setRegister(false)} variant="contained" color="primary" className={classes.button}>
-                Login
-            </Button>
-            <Button onClick={() => setRegister(true)} variant="contained" color="secondary" className={classes.button}>
-                Register
-            </Button>
-            {register ? <RegisterComponent/> : <LoginComponent/>}
-        </div>
-    );*/
     return(
     
     <div>
@@ -65,7 +56,7 @@ function LoginModalComponent(){
         Iniciar sesión
       </Button>
 
-      <Modal size="lg" className={classes.modal} show={show} onHide={handleClose}>
+      <Modal centered backdrop="static" size="lg" className={classes.modal} show={show} onHide={handleClose}>
         <Grid className={classes.header} container>
             <Grid className={!register? classes.buttonpressed: classes.button} onClick={() => setRegister(false)} item xs={6}>INICIAR SESION</Grid>
             <Grid className={register? classes.buttonpressed : classes.button} onClick={() => setRegister(true)} item xs={6}>REGISTRARSE</Grid>  
@@ -77,7 +68,7 @@ function LoginModalComponent(){
         </Grid>
         <Modal.Footer className={classes.footer}>
           <Button style={{borderRadius: 0}} variant="danger" onClick={handleClose}>
-            Cerrar ventana
+            Volver
           </Button>
         </Modal.Footer>
       </Modal>
