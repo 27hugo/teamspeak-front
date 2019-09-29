@@ -1,9 +1,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ScrollAnimation from 'react-animate-on-scroll';
+import { Grid } from '@material-ui/core';
 export default function MusicBotsComponent(){
     return(
-        <div className="container">
+        <Grid style={{marginTop: 30}} item xs={11} sm={10} md={9} lg={7}>
             <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeIn">
 
                     <Typography variant="h5">
@@ -181,6 +182,6 @@ export default function MusicBotsComponent(){
                 </div>
                 </div>
 
-            </div>
+            </Grid>
     )
 }
