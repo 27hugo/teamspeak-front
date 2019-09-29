@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ScrollAnimation from 'react-animate-on-scroll';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 export default function MusicBotsComponent(){
     return(
         <Grid style={{marginTop: 30}} item xs={11} sm={10} md={9} lg={7}>
@@ -129,7 +129,7 @@ export default function MusicBotsComponent(){
                         Puedes reproducir una radio en streaming enviándole un mensaje de chat al bot, con el comando <b>!stream urlradio</b>. Algunos ejemplos y radios Chilenas son las que se presentan a continuación.<br/>
                         Ejemplo: !stream https://redirector.dps.live/disney/mp364k/icecast.audio
                     </p>
-
+                    <Box display={{xs:'none', md: 'block'}}>
                     <table className="table-striped table-hover">
                         <thead>
                         <tr>
@@ -172,6 +172,7 @@ export default function MusicBotsComponent(){
                         </tr>
                         </tbody>
                     </table>
+                    </Box>
                 </div>
                 </ScrollAnimation>
                 </div>
