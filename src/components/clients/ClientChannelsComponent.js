@@ -51,7 +51,7 @@ function ClientChannelsComponent(props){
     });
   
     useEffect( () => {   
-        console.log(authenticationService.isLogged());
+        //console.log(authenticationService.isLogged());
         if(authenticationService.isLogged()){  
                 channelsService.getChannelsByCliId( authenticationService.getUserId() )
                 .then( canales => {

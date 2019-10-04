@@ -9,10 +9,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ScrollAnimation from 'react-animate-on-scroll';
+import './style.css';
 const useStyles = makeStyles(theme => ({
     section:{
         paddingTop: 20,
-        paddingBottom: 20,
+        paddingBottom: 50
     },
     card: {
         margin: theme.spacing(1),
@@ -57,7 +58,7 @@ function AdminsComponent(){
             <Grid id="admins" className={classes.section} style={{marginTop: 30}} item xs={11} sm={10} md={9} lg={7}>
                     <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInLeft">
 
-                    <Typography variant="h5">Administradores / Soporte</Typography>
+                    <Typography style={{marginTop: 35, marginBottom: 35}} variant="h5">Administradores / Soporte</Typography>
                     <Typography variant="body2">Puedes contactarte con nosotros directamente desde steam ante cualquier problema contactandonos a los perfiles.</Typography>
                     </ScrollAnimation>                    
                     <Grid style={{marginTop:20}} container justify="center">
@@ -66,10 +67,11 @@ function AdminsComponent(){
                                 <div className={classes.card}>
                                 <ScrollAnimation offset={80} animateOnce={true} animateIn="fadeInUp">
 
-                                        <CardMedia style={{justifyContent:"center",justifyItems:"center", justifySelf:"center" ,textAlign:"center"}}>
+                                        <CardMedia className="card-image" style={{justifyContent:"center",justifyItems:"center", justifySelf:"center" ,textAlign:"center"}}>
                                        {admin ? (
-                                        <img alt={i} className={classes.media} src={admin.avatarFull}/>
-                                        
+                                        <Button href={'http://steamcommunity.com/profiles/'+admin.steamID64}>
+                                            <img alt={i} className={classes.media} src={admin.avatarFull}/>
+                                        </Button>                                        
                                         ) : (
                                             <div>
                                             <Skeleton width="100%" height={200} />
@@ -85,7 +87,7 @@ function AdminsComponent(){
                                         ) : null}
                                         
                                         {admin ? (
-                                        <Typography variant="caption" color="textSecondary" component="p">
+                                        <Typography style={{color: "white"}} variant="caption" color="textSecondary" component="p">
                                             {admin.stateMessage}<br/>
                                             {admin.location ? admin.location : 'No registra ciudad'}
                                         </Typography>
@@ -94,7 +96,7 @@ function AdminsComponent(){
                                     
                                     {!isLoading ? (
                                     <CardActions style={{justifyContent: "center"}}>
-                                        <Button href={'http://steamcommunity.com/profiles/'+admin.steamID64} size="small" color="primary">
+                                        <Button style={{color:"white"}} href={'http://steamcommunity.com/profiles/'+admin.steamID64} size="small" color="primary">
                                         Ver Perfil
                                         </Button>
                                     </CardActions>
