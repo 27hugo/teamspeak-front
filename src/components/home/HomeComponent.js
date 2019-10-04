@@ -5,6 +5,7 @@ import SectionInfoComponent from './SectionInfoComponent';
 import HeaderComponent from './HeaderComponent';
 import AdminsComponent from './AdminsComponent';
 import FaqComponent from './FaqComponent';
+import divider from '../../assets/images/divider.png';
 import MusicBotsComponent from './MusicBotsComponent';
 const useStyles = makeStyles(theme => ({
     info:{
@@ -12,7 +13,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
     },
     admins:{
-        backgroundImage: "",
+        marginBottom: 20,
         backgroundSize: "cover",
         justifyContent: "center",
         flexGrow: 1,
@@ -34,8 +35,11 @@ function HomeComponent(){
             <Grid className={classes.info} container>       
                 <SectionInfoComponent/>
             </Grid>
-            <Grid className={classes.admins} container>
-                <AdminsComponent/>
+            <Grid className={classes.admins} justify="center" align="center" container>
+                <img width="100%" alt="wea" src={divider}/>
+                <div style={{width: "100%", backgroundColor: "#000020", color: "#ffffff"}}>
+                    <AdminsComponent/>
+                </div>
             </Grid>
             <Grid className={classes.musicbots} container>
                 <MusicBotsComponent/>
