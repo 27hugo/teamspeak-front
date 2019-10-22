@@ -18,12 +18,28 @@ export default class ChannelsService{
 
     }
 
-    updateChannelName(){
-
+    updateChannelName(channel){
+        return ( new Promise( resolve => {
+            axios.put( config.apiurl + '/channels/updatechannelname', channel, config.axios )
+                .then(resp => {
+                    resolve(resp.data);                    
+                })
+                .catch(err => {
+                    resolve({status:'ERROR', error: 'Ocurrió un error al conectar al servidor'});
+                });
+        }));
     }
 
-    updateChannelPassword(){
-
+    updateChannelPassword(channel){
+        return ( new Promise( resolve => {
+            axios.put( config.apiurl + '/channels/updatechannelpassword', channel, config.axios )
+                .then(resp => {
+                    resolve(resp.data);                    
+                })
+                .catch(err => {
+                    resolve({status:'ERROR', error: 'Ocurrió un error al conectar al servidor'});
+                });
+        }));
     }
 
     createChannel(channel){

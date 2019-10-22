@@ -14,6 +14,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import LoadingComponent from '../loading/LoadingComponent';
 import AuthenticationService from '../../services/AuthenticationService';
 import Tooltip from '@material-ui/core/Tooltip';
+import EditIcon from '@material-ui/icons/Edit';
+import EditChannelModalComponent from '../channels/EditChannelModalComponent';
 
 const authenticationService = new AuthenticationService();
 const channelsService = new ChannelsService();
@@ -42,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 function ClientChannelsComponent(props){
     
     const classes = useStyles();
+    const [edit, setEdit] = useState(false);
     const [canales, setCanales] = useState([]);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState({state: false, index: null});
@@ -76,10 +79,19 @@ function ClientChannelsComponent(props){
         setSubmitting(false);
     }
 
-    
+    const [canalAEditar, setCanalAEditar] = useState(false);
+
+    const editChannel = (canal) => {
+        //console.log("entrando a editChannel");
+        setCanalAEditar(canal);
+        setEdit(true);
+    };
 
     return(
         <div className={classes.root}>
+
+            {edit ? <EditChannelModalComponent channel={canalAEditar} visible={true}/>: ''}
+
             {loading ? <LoadingComponent/> : (
             <List>
             {canales.length > 0 ?canales.map( (canal, index) => (       
@@ -94,11 +106,18 @@ function ClientChannelsComponent(props){
                         secondary={'Contraseña: '+canal.can_contrasena}
                     />
                     <ListItemSecondaryAction>
-                         <Tooltip title="Eliminar">
+                    
+                    <Tooltip title="Editar">
+                        <IconButton onClick={() => editChannel(canal, index)} > 
+                            <EditIcon />
+                        </IconButton>
+                    </Tooltip>  
+                    
+                    <Tooltip title="Eliminar">
                          <IconButton disabled={submitting.state && submitting.index === index ? true : false} onClick={() => {deleteChannel(canal.can_id, index); setSubmitting({state: true, index: index})}} edge="end">
                         { submitting.state && submitting.index === index ? <CircularProgress /> : <DeleteIcon />}
                     </IconButton>
-                    </Tooltip>               
+                    </Tooltip>              
                     </ListItemSecondaryAction>
                 </ListItem>    
             )):
