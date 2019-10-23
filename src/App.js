@@ -8,6 +8,7 @@ import FooterComponent from './components/footer/FooterComponent';
 import NavbarComponent from './components/navbar/NavbarComponent';
 import TokenService from './services/TokenService';
 import AdminComponent from './components/admin/AdminComponent';
+import TermsComponent from './components/terms/TermsComponent';
 const token = new TokenService();
 token.validateTokenTime();
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/account/update" exact component={UpdateClientComponent} />
           <Route path="/channels/create" exact component={ChannelCreateComponent} />
           <Route path="/admin" exact component={AdminComponent} />
+          <Route path="/terminos" exact component={TermsComponent} />
         </Router>
       </div>
       <FooterComponent  />

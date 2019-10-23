@@ -96,7 +96,7 @@ function NavbarComponent(props) {
                 onClose={handleClose}
               >
                 
-                    <Link className={classes.links} to={'/admin'}><MenuItem onClick={handleClose}>Mis canales </MenuItem></Link>
+                    <Link className={classes.links} to={'/admin'}><MenuItem onClick={handleClose}>Administrar </MenuItem></Link>
                     <Link className={classes.links} onClick={logout} to={'/'}><MenuItem onClick={logout}>Cerrar Sesión</MenuItem></Link>
                 
               </Menu>
