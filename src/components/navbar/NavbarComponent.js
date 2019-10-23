@@ -78,7 +78,7 @@ function NavbarComponent(props) {
             </Link>
           </Typography>
 
-            <a href="https://facebook.com/oneweonconnection" target="_blank">
+            <a href="https://facebook.com/oneweonconnection" rel="noopener noreferrer" target="_blank">
               <img className={classes.fblogo} alt="logo" src={fblogo} />
             </a>
           
