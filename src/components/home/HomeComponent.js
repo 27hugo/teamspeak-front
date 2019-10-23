@@ -7,6 +7,7 @@ import AdminsComponent from './AdminsComponent';
 import FaqComponent from './FaqComponent';
 import divider from '../../assets/images/divider.png';
 import MusicBotsComponent from './MusicBotsComponent';
+import NewsModalComponent from '../news/NewsModalComponent';
 const useStyles = makeStyles(theme => ({
     info:{
         justifyContent: "center",
@@ -31,6 +32,7 @@ function HomeComponent(){
     const classes = useStyles();
     return(
         <div>
+            <NewsModalComponent />
             <HeaderComponent/>
             <Grid className={classes.info} container>       
                 <SectionInfoComponent/>

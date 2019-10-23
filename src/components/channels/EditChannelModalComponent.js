@@ -45,7 +45,6 @@ const useStyles = makeStyles(theme => ({
 
 
 function EditChannelModalComponent(props) {
-    console.log("abriendod modal");
     const [show, setShow] = useState(true);
   
     const handleClose = () => setShow(false);
@@ -57,7 +56,7 @@ function EditChannelModalComponent(props) {
     const onSubmit = async (values) => {
         setIsSubmitting(true);
         const channel = new ChannelModel(props.channel.can_id, null , null, values.name, values.password, null, null); 
-        console.log(channel);
+        
         let respName = await channelsService.updateChannelName(channel);
         let respPass = await channelsService.updateChannelPassword(channel);
         var msg = '';
