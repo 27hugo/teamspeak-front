@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import {  Button, FormGroup, FormHelperText, Typography } from '@material-ui/core';
+import {  Button, FormGroup, Typography } from '@material-ui/core';
 import { Modal } from 'react-bootstrap';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
-import ChannelModel from '../../models/ChannelModel';
 import {Form, Field} from 'react-final-form';
 import {TextField} from 'final-form-material-ui';
-import ChannelsService from '../../services/ChannelsService';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import EditIcon from '@material-ui/icons/Edit';
 
+import IconButton from '@material-ui/core/IconButton';
 
+import Tooltip from '@material-ui/core/Tooltip';
 const useStyles = makeStyles(theme => ({
     root:{
         padding:15
@@ -40,44 +40,29 @@ const useStyles = makeStyles(theme => ({
         border: 0,
         backgroundColor: "#fff",
     },
+    hide:{
+        display: "none"
+    },
+    circular: {
+        padding: 0,
+        fontSize: 0,
+    },
+    
+    buttonIcon:{
+        marginRight: 10 
+    }
     
 }));
 
 
 function EditChannelModalComponent(props) {
-    const [show, setShow] = useState(true);
-  
+    const [show, setShow] = useState(false);
+    const [hasChanged, setHasChanged] = useState(false);
     const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const classes = useStyles();
-    const channelsService = new ChannelsService(); 
-    const [success, setSuccess] = useState(undefined);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const onSubmit = async (values) => {
-        setIsSubmitting(true);
-        const channel = new ChannelModel(props.channel.can_id, null , null, values.name, values.password, null, null); 
-        
-        let respName = await channelsService.updateChannelName(channel);
-        let respPass = await channelsService.updateChannelPassword(channel);
-        var msg = '';
-        if(respName.status === 'OK' || respPass.status === 'OK'){
-            msg = 'Canal editado exitosamente';
-        }else{
-            msg = respPass.error;
-        }
 
-        setIsSubmitting(false);
-        msg += '. Redirigiendo en 3 segundos';
-        setSuccess(msg);
-        setTimeout(
-            function() {
-                window.location.reload()
-            },
-            3000
-        );
-        //console.log('modificando');
-        //console.log(props.channel);
-    }
     const required = value => (value ? undefined : 'Este campo es requerido');
     const alphanumeric = value => ( value.match(/^[a-z\d\-_\s]+$/i) ? undefined: 'Debe ingresar sólo números y letras');
     const minLength = min => value => value.length < min ? `Debe ingresar al menos ${min} caracteres`: undefined;
@@ -85,14 +70,20 @@ function EditChannelModalComponent(props) {
     
     const composeValidators = (...validators) => value => validators.reduce((error, validator) => error || validator(value), undefined);
 
-
+    const handleChange = (event) => {
+        setHasChanged(true);
+    };
 
 
 
   
     return (
       <>
- 
+         <Tooltip className={classes.buttonIcon} title="Eliminar">
+            <IconButton disabled={props.submitting.state && props.submitting.index === props.index ? true : false} onClick={handleShow} edge="end">
+            { props.submitting.state && props.submitting.index === props.index ? <CircularProgress color="primary" className={classes.circular} size={22} /> : <EditIcon />}
+            </IconButton>
+        </Tooltip> 
   
         <Modal className={classes.modal}  show={show} onHide={handleClose}>
           <Modal.Header className={classes.modalheader} closeButton>
@@ -106,9 +97,40 @@ function EditChannelModalComponent(props) {
           </Typography>
           <Form
             className={classes.form}
-            onSubmit={onSubmit}
+        
+            onSubmit={props.handleEdit}
             render={({ handleSubmit, reset, submitting, pristine, invalid }) => (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} onChange={handleChange} >
+                <FormGroup className={classes.hide}>
+                    <Field>
+                        {({ meta }) => (
+                        <div>
+                            <Field
+                                name="index"
+                                type="text"
+                                component={TextField}
+                                
+                                defaultValue={props.index}
+                            />   
+                        </div>
+                        )}
+                    </Field>
+                </FormGroup>
+                <FormGroup className={classes.hide}>
+                    <Field>
+                        {({ meta }) => (
+                        <div>
+                            <Field
+                                name="can_id"
+                                type="text"
+                                component={TextField}
+                                
+                                defaultValue={props.channel.can_id}
+                            />   
+                        </div>
+                        )}
+                    </Field>
+                </FormGroup>
                 <FormGroup>
                     <Field>
                         {({ meta }) => (
@@ -152,11 +174,11 @@ function EditChannelModalComponent(props) {
                         )}
                     </Field>
                 </FormGroup>
-                {success?<FormHelperText style={{ fontSize: 14 ,textAlign: "center", margin: 10, color: "red"}}>{success}</FormHelperText>:null}
             
-                <Button disabled={isSubmitting || pristine || invalid} type="submit" variant="contained" size="large" color="primary">
+                <Button disabled={submitting || pristine || invalid || !hasChanged} type="submit" variant="contained" size="large" color="primary"
+                onClick={() => {handleClose(); props.setSubmitting({state: true, index: props.index});}}
+                >
                     Guardar cambios
-                    {isSubmitting ? <CircularProgress style={{marginLeft:10}} size={18} />  :  <ChevronRightIcon/>}     
                 </Button>
             </form>
             )}

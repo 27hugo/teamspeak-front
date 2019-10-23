@@ -7,14 +7,12 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import FolderIcon from '@material-ui/icons/Folder';
 import LoadingComponent from '../loading/LoadingComponent';
 import AuthenticationService from '../../services/AuthenticationService';
-import Tooltip from '@material-ui/core/Tooltip';
-import EditIcon from '@material-ui/icons/Edit';
 import EditChannelModalComponent from '../channels/EditChannelModalComponent';
 import DeleteChannelModalComponent from '../channels/DeleteChannelModalComponent';
+import ChannelModel from '../../models/ChannelModel';
 const authenticationService = new AuthenticationService();
 const channelsService = new ChannelsService();
 const useStyles = makeStyles(theme => ({
@@ -31,20 +29,25 @@ const useStyles = makeStyles(theme => ({
     progress: {
         margin: theme.spacing(2),
       },
-      typography: {
+    typography: {
         padding: theme.spacing(2),
-      }
+    },
   }));
 
 
 function ClientChannelsComponent(props){
     
     const classes = useStyles();
-    const [edit, setEdit] = useState(false);
     const [canales, setCanales] = useState([]);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState({state: false, index: null});
+    const [submittingEdit, setSubmittingEdit] = useState({state: false, index: null});
+    
     const [deleteError, setDeleteError] = useState({
+        state: false,
+        error: ''
+    });
+    const [editError, setEditError] = useState({
         state: false,
         error: ''
     });
@@ -61,12 +64,7 @@ function ClientChannelsComponent(props){
         }
     }, []);
 
-    const [canalAEditar, setCanalAEditar] = useState(false);
 
-    const editChannel = (canal) => {
-        setCanalAEditar(canal);
-        setEdit(true);
-    };
 
     const handleDelete = async (channel, index) => {
         setSubmitting(true);
@@ -81,10 +79,25 @@ function ClientChannelsComponent(props){
         setSubmitting(false);
     };
 
+    const handleEdit = async (values) => {
+        setEditError({state:false, error: ''});
+        const channel = new ChannelModel(values.can_id, null , null, values.name, values.password, null, null); 
+        
+        let respName = await channelsService.updateChannelName(channel);
+        let respPass = await channelsService.updateChannelPassword(channel);
+
+        if(respName.status === 'OK' || respPass.status === 'OK'){
+            canales.splice(values.index, 1, channel);
+        }else{
+            setEditError({state:true, error: 'No se han realizado cambios'});
+        }
+        setSubmittingEdit(false);
+        
+    }
+
     return(
         <div className={classes.root}>
 
-            {edit ? <EditChannelModalComponent channel={canalAEditar} visible={true}/>: ''}
             {loading ? <LoadingComponent/> : (
             <List>
             {canales.length > 0 ?canales.map( (canal, index) => (       
@@ -101,16 +114,22 @@ function ClientChannelsComponent(props){
 
                     <ListItemSecondaryAction>
                     
-                    <Tooltip title="Editar">
-                        <IconButton onClick={() => editChannel(canal, index)} > 
-                            <EditIcon />
-                        </IconButton>
-                    </Tooltip>  
-                    
-                    <DeleteChannelModalComponent setSubmitting={setSubmitting} submitting={submitting} onDelete={handleDelete} index={index} channel={canal}/>
+                    <EditChannelModalComponent 
+                        setSubmitting={setSubmittingEdit} 
+                        submitting={submittingEdit} 
+                        handleEdit={handleEdit} 
+                        index={index} 
+                        channel={canal}
+                    />
 
-                    
-        
+                    <DeleteChannelModalComponent 
+                        setSubmitting={setSubmitting} 
+                        submitting={submitting} 
+                        onDelete={handleDelete} 
+                        index={index} 
+                        channel={canal}
+                    />
+
                     </ListItemSecondaryAction>
                 </ListItem>    
             )):
@@ -132,6 +151,19 @@ function ClientChannelsComponent(props){
 
                     <ListItemText
                         primary={deleteError.error}
+                    />
+                </ListItem>
+            </List>
+            </div>
+            :null}
+
+            {editError.state?
+            <div className={classes.demo}>
+            <List>
+                <ListItem>
+
+                    <ListItemText
+                        primary={editError.error}
                     />
                 </ListItem>
             </List>
