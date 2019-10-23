@@ -79,7 +79,7 @@ function EditChannelModalComponent(props) {
   
     return (
       <>
-         <Tooltip className={classes.buttonIcon} title="Eliminar">
+         <Tooltip className={classes.buttonIcon} title="Editar">
             <IconButton disabled={props.submitting.state && props.submitting.index === props.index ? true : false} onClick={handleShow} edge="end">
             { props.submitting.state && props.submitting.index === props.index ? <CircularProgress color="primary" className={classes.circular} size={22} /> : <EditIcon />}
             </IconButton>
