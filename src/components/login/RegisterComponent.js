@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MenuItem, Grid, Button, FormGroup, FormHelperText } from '@material-ui/core';
+import {Link} from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginModel from '../../models/LoginModel';
@@ -47,7 +48,7 @@ function RegisterComponent(){
         setIsSubmitting(false);
 
     }
-    
+
     const required = value => (value ? undefined : 'Este campo es requerido');
     const email = value => ( value.match(/[a-zA-Z0-9]@/) ? undefined: 'El correo ingresado no es válido' );
     const alphanumeric = value => ( value.match(/^[a-z\d\-_\s]+$/i) ? undefined: 'Debe ingresar sólo números y letras');
@@ -71,7 +72,7 @@ function RegisterComponent(){
             <Form    
                 onSubmit={onSubmit}
                 render={({ handleSubmit, onChange, reset, submitting, pristine, invalid, value, values }) => (
-                <form onSubmit={handleSubmit}>      
+                <form onSubmit={handleSubmit} >      
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={12}>
                             <FormGroup>
@@ -225,6 +226,14 @@ function RegisterComponent(){
                                     )}
                                 </Field>
                             </FormGroup>
+                        </Grid>
+                        <Grid style={{textAlign: "left" }} item xs={12} sm={12}>
+                        <label style={{color: "#000"}}>
+                            <Field  name="acceptTerms" component="input" validate={required} type="checkbox" value={value} />
+                            Acepto los <Link  to={'/terminos'} target="_blank">términos y condiciones.</Link>
+                        </label>
+                        
+                            
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <FormGroup>

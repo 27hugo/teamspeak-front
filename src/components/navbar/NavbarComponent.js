@@ -12,6 +12,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import LoginModalComponent from '../login/LoginModalComponent';
 import './NavbarComponent.css';
 import logo from '../../assets/images/logo.png';
+import fblogo from '../../assets/images/facebook.png';
 import AuthenticationService from '../../services/AuthenticationService';
 const authenticationService = new AuthenticationService();
 
@@ -22,6 +23,11 @@ const useStyles = makeStyles(theme => ({
   logo: {
     width: 180,
     height: 50
+  },
+  fblogo: {
+    marginRight: 20,
+    width: 40,
+    height: 40
   },
   appbar:{
       backgroundColor: "#00002F"
@@ -72,7 +78,9 @@ function NavbarComponent(props) {
             </Link>
           </Typography>
 
-
+            <a href="https://facebook.com/oneweonconnection" target="_blank">
+              <img className={classes.fblogo} alt="logo" src={fblogo} />
+            </a>
           
           {auth ? (
             <div>
@@ -96,7 +104,7 @@ function NavbarComponent(props) {
                 onClose={handleClose}
               >
                 
-                    <Link className={classes.links} to={'/admin'}><MenuItem onClick={handleClose}>Mis canales </MenuItem></Link>
+                    <Link className={classes.links} to={'/admin'}><MenuItem onClick={handleClose}>Administrar </MenuItem></Link>
                     <Link className={classes.links} onClick={logout} to={'/'}><MenuItem onClick={logout}>Cerrar Sesión</MenuItem></Link>
                 
               </Menu>
