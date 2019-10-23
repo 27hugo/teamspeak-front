@@ -8,7 +8,6 @@ import FooterComponent from './components/footer/FooterComponent';
 import NavbarComponent from './components/navbar/NavbarComponent';
 import TokenService from './services/TokenService';
 import AdminComponent from './components/admin/AdminComponent';
-import NewsModalComponent from './components/news/NewsModalComponent';
 const token = new TokenService();
 token.validateTokenTime();
 
@@ -27,7 +26,7 @@ function App() {
         </Router>
       </div>
       <FooterComponent  />
-      <NewsModalComponent />
+      
       
     </div>
   );

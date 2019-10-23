@@ -5,15 +5,25 @@ import { makeStyles } from '@material-ui/core/styles';
 import './NewsModalComponent.css';
 const useStyles = makeStyles(theme => ({
     modal: {
+      borderRadius: 0,
         background: 'rgba(0,0,0,0.7)'
     },
     header: {
+      borderRadius: 0,
+        color: "#fff",
+        backgroundColor: "#120E29",
         border: 0,
     },
     body: {
+      borderRadius: 0,
+      color: "#fff",
+      backgroundColor: "#120E29",
         padding: 20
     },
     footer: {
+      borderRadius: 0,
+      color: "#fff",
+      backgroundColor: "#120E29",
         border: 0,
     }
 }));
